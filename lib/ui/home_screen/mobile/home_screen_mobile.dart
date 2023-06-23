@@ -34,7 +34,7 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset('${MyStrings.svgLocation}search.svg'),
+            child: SvgPicture.asset('${MyStrings.svgLocation}.svg'),
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
