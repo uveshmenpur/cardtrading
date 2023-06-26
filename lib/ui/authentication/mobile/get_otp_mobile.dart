@@ -94,10 +94,10 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
                       text: TextSpan(
                         text: 'Did Not Receive A Code?',
                         style: TextStyles.regular,
-                        children: const [
+                        children: [
                           TextSpan(
                             text: ' RESEND',
-                            style: TextStyle(
+                            style: TextStyles.regular.copyWith(
                                 fontSize: 14, color: MyColors.primary),
                           ),
                         ],

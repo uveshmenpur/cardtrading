@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cardtrading/ui/choose_language/choose_language.dart';
 import 'package:cardtrading/ui/utils/colors.dart';
+import 'package:cardtrading/ui/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenMobile extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         backgroundColor: Color.fromRGBO(26, 26, 26, 1),
         body: Center(
           child: Column(
@@ -39,20 +40,16 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
             children: [
               Text(
                 "Card",
-                style: TextStyle(
+                style: TextStyles.bold.copyWith(
                   color: MyColors.primary,
                   fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat',
                 ),
               ),
               Text(
                 "Buy & Sell",
-                style: TextStyle(
+                style: TextStyles.regular.copyWith(
                   color: MyColors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'Montserrat',
+                  fontSize: 16
                 ),
               ),
             ],

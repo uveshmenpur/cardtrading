@@ -1,5 +1,7 @@
 import 'package:banner_carousel/banner_carousel.dart';
+import 'package:cardtrading/ui/authentication/get_otp.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
+import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_featured_collection_list.dart';
 import 'package:cardtrading/ui/utils/colors.dart';
 import 'package:cardtrading/ui/utils/my_strings.dart';
 import 'package:cardtrading/ui/utils/text_style.dart';
@@ -54,40 +56,99 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: BannerCarousel(
-                animation: false,
                 viewportFraction: 1.0,
                 showIndicator: false,
-                spaceBetween: 2.0,
                 initialPage: 1,
                 customizedBanners: [
                   SizedBox(
-                      width: 0.9.sw,
-                      height: 0.3.sh,
-                      child: Image.network(
-                        'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                        fit: BoxFit.fill,
-                      )),
+                    width: 0.9.sw,
+                    height: 0.3.sh,
+                    child: Image.network(
+                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                   SizedBox(
-                      width: 0.9.sw,
-                      height: 0.3.sh,
-                      child: Image.network(
-                        'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                        fit: BoxFit.fill,
-                      )),
+                    width: 0.9.sw,
+                    height: 0.3.sh,
+                    child: Image.network(
+                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                   SizedBox(
-                      width: 0.9.sw,
-                      height: 0.3.sh,
-                      child: Image.network(
-                        'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                        fit: BoxFit.fill,
-                      )),
+                    width: 0.9.sw,
+                    height: 0.3.sh,
+                    child: Image.network(
+                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ],
               ),
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Divider(
                 thickness: 1.5,
+              ),
+            ),
+            const HomeScreenFeaturedCollectionList(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Divider(
+                thickness: 1.5,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Featured Sellers',
+                    style: TextStyles.regular
+                        .copyWith(color: MyColors.golden, fontSize: 18.sp),
+                  ),
+                  Text(
+                    'See All',
+                    style: TextStyles.regular.copyWith(color: MyColors.primary),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+              height: 120.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 56.w,
+                          height: 56.h,
+                          child: const CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                AssetImage('assets/images/profile.jpg'),
+                          ),
+                        ),
+                        Text(
+                          'Shohei \nOhtani',
+                          style: TextStyles.regular
+                              .copyWith(color: MyColors.greyText),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                itemCount: 10,
               ),
             ),
           ],
@@ -120,62 +181,30 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
           currentIndex: id,
           type: BottomNavigationBarType.shifting,
           showUnselectedLabels: true,
-          selectedLabelStyle:
-              TextStyles.regular.copyWith(color: MyColors.primary,fontSize: 12.sp),
+          selectedLabelStyle: TextStyles.regular
+              .copyWith(color: MyColors.primary, fontSize: 12.sp),
           selectedItemColor: MyColors.primary,
-          unselectedLabelStyle:
-              TextStyles.regular.copyWith(color: MyColors.white,fontSize: 12.sp),
+          unselectedLabelStyle: TextStyles.regular
+              .copyWith(color: MyColors.white, fontSize: 12.sp),
           onTap: (index) {
-            setState(() {
-              id = index;
-            });
+            setState(
+              () {
+                id = index;
+                if (id == 1 || id == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const GetOtp();
+                      },
+                    ),
+                  );
+                }
+              },
+            );
           },
         ),
       ),
     );
   }
 }
-/*
-Column(
-                        children: [
-                          ListTile(
-                            title: RichText(
-                              text: TextSpan(text: 'Buy',style: TextStyles.bold,children: [
-                                TextSpan(text: 'with'),
-                                TextSpan(text: 'Confidence')
-                              ],),
-
-                            ),
-                          )
-                        ],
-                      ),
-
-                      ListView(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              children: [
-                CarouselSlider(
-                  items: [
-                    SizedBox(
-                      width: 0.85.sw,
-                      height: 0.3.sh,
-                      child: Image.network('http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',fit: BoxFit.cover,)
-                    ),
-                    SizedBox(
-                      width: 0.85.sw,
-                      height: 0.3.sh,
-                      child: Image.network('http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',fit: BoxFit.cover,)
-                    ),
-                    SizedBox(
-                      width: 0.85.sw,
-                      height: 0.3.sh,
-                      child: Image.network('http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',fit: BoxFit.cover,)
-                    ),
-                  ],
-                  options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                  ),
-                ),
-              ],
-            )
- */

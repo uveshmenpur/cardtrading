@@ -30,14 +30,14 @@ class SignInMobile extends StatelessWidget {
       ///Content of the body is wrapper in SingleChildScrollView to avoid overflow when the keyboard comes up and takes half of the screen height.
       body: SingleChildScrollView(
         child: Padding(
-          padding: REdgeInsets.all(8.0.r),
+          padding: REdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: REdgeInsets.all(8.0.r),
+                padding: REdgeInsets.all(8.0),
                 child: SizedBox(
                   width: 0.6.sw,
 
@@ -50,7 +50,7 @@ class SignInMobile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: REdgeInsets.all(8.0.r),
+                padding: REdgeInsets.all(8.0),
                 child: SizedBox(
                   width: 0.9.sw,
 

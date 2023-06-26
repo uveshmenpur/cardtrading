@@ -14,8 +14,7 @@ class CommonText extends StatelessWidget {
     return Text(
       text,
       textAlign: align,
-      style: TextStyle(
-        fontFamily: TextStyles.fontFamily,
+      style: TextStyles.regular.copyWith(
         fontSize: fontSize,
         color: MyColors.greyText,
         fontWeight: weight,

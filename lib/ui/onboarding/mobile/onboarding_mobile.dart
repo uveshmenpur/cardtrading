@@ -1,4 +1,4 @@
-import 'package:cardtrading/ui/authentication/sign_in.dart';
+import 'package:cardtrading/ui/home_screen/home_screen.dart';
 import 'package:cardtrading/ui/utils/colors.dart';
 import 'package:cardtrading/ui/utils/my_strings.dart';
 import 'package:cardtrading/ui/utils/text_style.dart';
@@ -40,11 +40,11 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                   TextButton(
                     child: initialPage != 3
                         ? Text('Skip',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: MyColors.greyText,
-                          fontSize: 12.sp,
-                        ))
+                            textAlign: TextAlign.start,
+                            style: TextStyles.regular.copyWith(
+                              color: MyColors.greyText,
+                              fontSize: 12.sp,
+                            ))
                         : const Text(''),
                     onPressed: () {
                       setState(() {
@@ -62,7 +62,7 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
               ),
               Container(
                 width: 0.7.sw,
-                padding: REdgeInsets.all(8.0.r),
+                padding: REdgeInsets.all(8.0),
                 child: Text(
                   initialPage == 1
                       ? MyStrings.onBoardingOneTitle
@@ -71,11 +71,8 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                           : MyStrings.onBoardingThreeTitle,
                   textAlign: TextAlign.start,
                   maxLines: 2,
-                  style: TextStyle(
-                      fontFamily: TextStyles.fontFamily,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.golden),
+                  style: TextStyles.bold
+                      .copyWith(fontSize: 24.sp, color: MyColors.golden),
                 ),
               ),
               Container(
@@ -89,10 +86,8 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                           : MyStrings.onBoardingThreeContent,
                   textAlign: TextAlign.start,
                   maxLines: 2,
-                  style: TextStyle(
-                      fontFamily: TextStyles.fontFamily,
-                      fontSize: 12.sp,
-                      color: MyColors.greyText),
+                  style: TextStyles.regular
+                      .copyWith(fontSize: 12.sp, color: MyColors.greyText),
                 ),
               ),
               SizedBox(
@@ -148,7 +143,7 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return const SignIn();
+                          return const HomeScreen();
                         },
                       ),
                     );
@@ -159,11 +154,8 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                   label: Text(
                     'Swipe to get started',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 16.sp),
+                    style: TextStyles.medium
+                        .copyWith(color: MyColors.primary, fontSize: 16.sp),
                   ),
                   child: Container(
                     color: MyColors.background,
@@ -182,9 +174,13 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                     child: CommonButton(
                       text: 'Next',
                       onPressed: () {
-                        setState(() {
-                          initialPage == 1 ? initialPage = 2 : initialPage = 3;
-                        },);
+                        setState(
+                          () {
+                            initialPage == 1
+                                ? initialPage = 2
+                                : initialPage = 3;
+                          },
+                        );
                       },
                     ),
                   ),

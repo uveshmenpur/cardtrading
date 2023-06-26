@@ -1,4 +1,5 @@
 import 'package:cardtrading/ui/utils/colors.dart';
+import 'package:cardtrading/ui/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -43,10 +44,9 @@ class _GetOtpButtonState extends State<GetOtpButton> {
           children: [
             Text(
               widget.text,
-              style: const TextStyle(
+              style: TextStyles.semiBold.copyWith(
                 color: MyColors.selectedButtonText,
                 fontSize: 18,
-                fontWeight: FontWeight.w600,
               ),
             ),
             const Icon(
