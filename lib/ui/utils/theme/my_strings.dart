@@ -22,6 +22,8 @@ class AppStrings {
   static const keyCard = 'Card';
   static const keyGetOtp = 'Get Otp';
   static const keySignIn = 'Sign In';
+  static const keyCardPrice2 = '999.87KD';
+  static const keyAddToCart = 'Add To Cart';
   static const keyPortfolio = 'Portfolio';
   static const keyStore = 'Store';
   static const keyProfile = 'Profile';

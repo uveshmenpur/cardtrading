@@ -18,4 +18,5 @@ class AppColors{
   static const containerText = Color(0xFF959FAB);
   static const cardBackgroundColor = Color(0xFF1F2326);
   static const indicatorColor = Color(0xFF585F67);
+  static const dividerColor = Color(0xFF282D33);
 }

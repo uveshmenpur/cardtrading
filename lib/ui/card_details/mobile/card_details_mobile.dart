@@ -3,8 +3,10 @@ import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CardDetailsMobile extends StatefulWidget {
   const CardDetailsMobile({super.key});
@@ -39,8 +41,10 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
         elevation: 0,
         backgroundColor: AppColors.background,
       ),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Divider(
               thickness: 1.0,
@@ -103,8 +107,8 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                       child: Center(
                         child: Text(
                           AppStrings.keyCardExclusive,
-                          style: TextStyles.semiBold
-                              .copyWith(color: Colors.black, fontSize: 12.sp),
+                          style: TextStyles.semiBold.copyWith(
+                              color: Colors.black, fontSize: 12.sp),
                         ),
                       ),
                     ),
@@ -133,6 +137,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
               padding: const EdgeInsets.all(20.0),
               alignment: Alignment.topLeft,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ...List.generate(
@@ -142,7 +147,8 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                         text: TextSpan(
                           text: keys[index],
                           style: TextStyles.regular.copyWith(
-                              color: AppColors.lightGolden, fontSize: 12.sp),
+                              color: AppColors.lightGolden,
+                              fontSize: 12.sp),
                           children: [
                             TextSpan(
                               text: values[index],
@@ -165,12 +171,13 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
             ),
             Container(
               width: double.infinity,
-              height: 0.3.sh,
+              height: 0.25.sh,
               decoration: const BoxDecoration(
                 color: AppColors.containerBg,
               ),
               margin: const EdgeInsets.all(20.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
@@ -184,26 +191,55 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CardDetailsIcon(
+                        svg: SvgPicture.asset(
+                          '${AppAssets.svgLocation}shipping.svg',
+                          width: 40.w,
+                          height: 40.h,
+                        ),
                         title: AppStrings.keyExpressShipping,
-                        url: '${AppAssets.svgLocation}shipping.svg',
                       ),
                       CardDetailsIcon(
+                        svg: SvgPicture.asset(
+                          '${AppAssets.svgLocation}guarantee.svg',
+                          width: 40.w,
+                          height: 40.h,
+                        ),
                         title: AppStrings.keyAuthenticGuarantee,
-                        url: '${AppAssets.svgLocation}guarantee.svg',
                       ),
                       CardDetailsIcon(
+                        svg: SvgPicture.asset(
+                          '${AppAssets.svgLocation}payment.svg',
+                          width: 40.w,
+                          height: 40.h,
+                        ),
                         title: AppStrings.keySecurePayment,
-                        url: '${AppAssets.svgLocation}payment.svg',
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
-      backgroundColor: AppColors.background,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 12.0),
+        child: CommonButton(
+          buttonText: '',
+          buttonPadding: const EdgeInsets.all(12.0),
+          prefixWidget: Text(
+            AppStrings.keyCardPrice2,
+            style: TextStyles.semiBold
+                .copyWith(fontSize: 16.sp, color: AppColors.dividerColor),
+          ),
+          suffixWidget: Text(
+            AppStrings.keyAddToCart,
+            style: TextStyles.semiBold
+                .copyWith(fontSize: 16.sp, color: AppColors.dividerColor),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
