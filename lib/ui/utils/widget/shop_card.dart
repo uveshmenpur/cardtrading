@@ -1,11 +1,14 @@
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopCard extends StatefulWidget {
-  const ShopCard({super.key});
+  const ShopCard({super.key, required this.index});
+
+  final int index;
 
   @override
   State<ShopCard> createState() => _ShopCardState();
@@ -27,13 +30,13 @@ class _ShopCardState extends State<ShopCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(4.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
                 color: AppColors.golden,
                 child: Text(
-                  'Exclusive',
-                  style: TextStyles.regular.copyWith(
-                    color: Colors.black,
-                  ),
+                  AppStrings.keyCardExclusive,
+                  style: TextStyles.semiBold
+                      .copyWith(color: Colors.black, fontSize: 12.sp),
                 ),
               ),
               IconButton(
@@ -45,18 +48,18 @@ class _ShopCardState extends State<ShopCard> {
                   });
                 },
                 icon: Icon(
-                  isFavourite ? Icons.favorite_border : Icons.favorite,
+                  isFavourite ? Icons.favorite : Icons.favorite_border,
                   color: AppColors.primary,
                 ),
               ),
               Text(
-                '20K',
+                AppStrings.keyCardLikesCount,
                 style: TextStyles.regular,
               ),
             ],
           ),
           Image.asset(
-            '${AppAssets.imgLocation}card.png',
+            '${AppAssets.imgLocation}card_${widget.index % 2}.png',
             width: 100.w,
             height: 150.h,
             fit: BoxFit.fill,
@@ -64,19 +67,19 @@ class _ShopCardState extends State<ShopCard> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              '2004 PANINI MEGA CRACKS LIONEL MESSI #71BIS',
+              AppStrings.keyCardDescription,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               softWrap: true,
-              style: TextStyles.regular.copyWith(
-                fontSize: 12.sp
-              ),
+              style: TextStyles.regular.copyWith(fontSize: 12.sp),
             ),
           ),
-          Text('21497.00 KD',textAlign: TextAlign.center,style: TextStyles.semiBold.copyWith(
-            color: AppColors.primary
-          ),),
+          Text(
+            AppStrings.keyCardPrice,
+            textAlign: TextAlign.center,
+            style: TextStyles.semiBold.copyWith(color: AppColors.primary),
+          ),
         ],
       ),
     );

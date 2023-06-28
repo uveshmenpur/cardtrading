@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_104087" data-name="Group 104087" transform="translate(-232 -1596)">
+    <g id="Group_104086" data-name="Group 104086" transform="translate(59)">
+      <g id="Group_104084" data-name="Group 104084" transform="translate(74)">
+        <rect id="Rectangle_34794" data-name="Rectangle 34794" width="40" height="40" rx="20" transform="translate(99 1596)" fill="#1a1a1a"/>
+      </g>
+    </g>
+    <path id="medal-line" d="M12,7a8,8,0,1,1-8,8A8,8,0,0,1,12,7Zm6,8Zm-6-4.5,1.323,2.68,2.957.43L14.14,15.7l.505,2.945L12,17.25,9.355,18.641,9.86,15.7,7.72,13.609l2.957-.43ZM18,2V5L16.637,6.138A9.935,9.935,0,0,0,13,5.05V2ZM11,2v3.05A9.935,9.935,0,0,0,7.364,6.137L6,5V2Z" transform="translate(240 1603.001)" fill="#76dcc2"/>
+    <path id="medal-line-2" data-name="medal-line" d="M12,10.5l1.323,2.68,2.957.43L14.14,15.7l.505,2.945L12,17.25,9.355,18.641,9.86,15.7,7.72,13.609l2.957-.43Z" transform="translate(240 1603.001)" fill="#1a1a1a"/>
+  </g>
+</svg>

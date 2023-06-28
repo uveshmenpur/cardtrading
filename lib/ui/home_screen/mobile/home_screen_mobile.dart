@@ -1,7 +1,10 @@
-import 'package:banner_carousel/banner_carousel.dart';
 import 'package:cardtrading/ui/authentication/get_otp.dart';
+import 'package:cardtrading/ui/card_details/card_details.dart';
+import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_description.dart';
+import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_divider.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_featured_collection_list.dart';
+import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_profiles.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -10,6 +13,8 @@ import 'package:cardtrading/ui/utils/widget/shop_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'helper/home_screen_banner.dart';
 
 class HomeScreenMobile extends StatefulWidget {
   const HomeScreenMobile({super.key});
@@ -55,133 +60,19 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: BannerCarousel(
-                viewportFraction: 1.0,
-                showIndicator: false,
-                initialPage: 1,
-                customizedBanners: [
-                  SizedBox(
-                    width: 0.9.sw,
-                    height: 0.3.sh,
-                    child: Image.network(
-                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 0.9.sw,
-                    height: 0.3.sh,
-                    child: Image.network(
-                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 0.9.sw,
-                    height: 0.3.sh,
-                    child: Image.network(
-                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Divider(
-                thickness: 1.5,
-              ),
-            ),
+            const HomeScreenBanner(),
+            const HomeScreenDivider(),
             const HomeScreenFeaturedCollectionList(),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Divider(
-                thickness: 1.5,
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppStrings.keyFeaturedSellers,
-                    style: TextStyles.regular
-                        .copyWith(color: AppColors.golden, fontSize: 18.sp),
-                  ),
-                  Text(
-                    AppStrings.keySeeAll,
-                    style: TextStyles.regular.copyWith(color: AppColors.primary),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
-              height: 120.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 56.w,
-                          height: 56.h,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage('${AppAssets.imgLocation}card.png'),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 56.w,
-                          child: Text(
-                            'Shohei Ohtani',
-                            maxLines: 2,
-                            style: TextStyles.regular
-                                .copyWith(color: AppColors.greyText),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: 10,
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppStrings.keyShop,
-                    style: TextStyles.regular
-                        .copyWith(color: AppColors.golden, fontSize: 18.sp),
-                  ),
-                  Text(
-                    AppStrings.keySeeAll,
-                    style: TextStyles.regular.copyWith(color: AppColors.primary),
-                  ),
-                ],
-              ),
-            ),
+            const HomeScreenDivider(),
+            const HomeScreenDescription(title: AppStrings.keyFeaturedSellers),
+            const HomeScreenProfiles(),
+            const HomeScreenDescription(title: AppStrings.keyShop),
             Container(
               width: 0.9.sw,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 4,
+                itemCount: 6,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: 2,
@@ -189,7 +80,7 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                     crossAxisCount: 2,
                     childAspectRatio: 0.5),
                 itemBuilder: (context, index) {
-                  return const ShopCard();
+                  return ShopCard(index: index);
                 },
               ),
             ),
@@ -197,23 +88,70 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(bottom: 16.0),
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${AppAssets.svgLocation}home.svg'),
-                label:AppStrings.keyHome,
+                icon: Container(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  decoration: BoxDecoration(
+                    border: BorderDirectional(
+                      top: BorderSide(
+                        color: id == 0 ? AppColors.primary : Colors.transparent,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  child: SvgPicture.asset('${AppAssets.svgLocation}home.svg'),
+                ),
+                label: AppStrings.keyHome,
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${AppAssets.svgLocation}portfolio.svg'),
+                icon: Container(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    decoration: BoxDecoration(
+                      border: BorderDirectional(
+                        top: BorderSide(
+                          color:
+                              id == 1 ? AppColors.primary : Colors.transparent,
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                        '${AppAssets.svgLocation}portfolio.svg'),),
                 label: AppStrings.keyPortfolio,
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${AppAssets.svgLocation}store.svg'),
+                icon: Container(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    decoration: BoxDecoration(
+                      border: BorderDirectional(
+                        top: BorderSide(
+                          color:
+                              id == 2 ? AppColors.primary : Colors.transparent,
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
+                    child:
+                        SvgPicture.asset('${AppAssets.svgLocation}store.svg'),),
                 label: AppStrings.keyStore,
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${AppAssets.svgLocation}profile.svg'),
+                icon: Container(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  decoration: BoxDecoration(
+                    border: BorderDirectional(
+                      top: BorderSide(
+                        color: id == 3 ? AppColors.primary : Colors.transparent,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  child:
+                      SvgPicture.asset('${AppAssets.svgLocation}profile.svg'),
+                ),
                 label: AppStrings.keyProfile,
                 backgroundColor: AppColors.background),
           ],
@@ -242,6 +180,16 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                     ),
                   );
                 }
+                id == 2
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const CardDetails();
+                          },
+                        ),
+                      )
+                    : null;
               },
             );
           },
