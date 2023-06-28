@@ -1,5 +1,5 @@
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +20,7 @@ class CommonTitle extends StatelessWidget {
       style: TextStyle(
         fontFamily: TextStyles.fontFamily,
         fontSize: fontSize.sp,
-        color: MyColors.golden,
+        color: AppColors.golden,
         fontWeight: weight,
       ),
     );

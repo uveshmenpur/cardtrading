@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-class MyColors{
+class AppColors{
 
-  MyColors._();
+  AppColors._();
 
   // static const primary = Color.fromRGBO(118, 220, 194, 1);
   static const primary = Color(0xFF76DCC2);
@@ -13,5 +13,6 @@ class MyColors{
   static const buttonText = Color(0xFF858585);
   static const selectedButtonText = Color(0xFF0B0B0C);
   static const greyText = Color(0xFFACACAC);
-  static const indicator = Color(0xFF585F67);
+  static const cardBackgroundColor = Color(0xFF1F2326);
+  static const indicatorColor = Color(0xFF585F67);
 }

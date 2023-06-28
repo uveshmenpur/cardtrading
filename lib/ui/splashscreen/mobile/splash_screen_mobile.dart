@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:cardtrading/ui/choose_language/choose_language.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenMobile extends StatefulWidget {
@@ -18,7 +19,7 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
     super.initState();
 
     //Code to redirect to the onboarding screen in 2 second
-    Timer(
+    Future.delayed(
       const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
@@ -32,23 +33,23 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(26, 26, 26, 1),
+        backgroundColor: AppColors.background,
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Card",
+                AppStrings.keyCard,
                 style: TextStyles.bold.copyWith(
-                  color: MyColors.primary,
+                  color: AppColors.primary,
                   fontSize: 50,
                 ),
               ),
               Text(
-                "Buy & Sell",
+                AppStrings.keyBuyAndSell,
                 style: TextStyles.regular.copyWith(
-                  color: MyColors.white,
+                  color: AppColors.white,
                   fontSize: 16
                 ),
               ),

@@ -2,9 +2,11 @@ import 'package:banner_carousel/banner_carousel.dart';
 import 'package:cardtrading/ui/authentication/get_otp.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_featured_collection_list.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/my_strings.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/assets.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/shop_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,12 +25,12 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.background,
+      backgroundColor: AppColors.background,
       key: _globalKey,
       appBar: AppBar(
-        backgroundColor: MyColors.background,
+        backgroundColor: AppColors.background,
         leading: IconButton(
-          icon: SvgPicture.asset('assets/svg/menu.svg'),
+          icon: SvgPicture.asset('${AppAssets.svgLocation}menu.svg'),
           onPressed: () {
             _globalKey.currentState!.openDrawer();
           },
@@ -36,16 +38,16 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset('${MyStrings.svgLocation}search.svg'),
+            child: SvgPicture.asset('${AppAssets.svgLocation}search.svg'),
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
             child:
-                SvgPicture.asset('${MyStrings.svgLocation}shopping_cart.svg'),
+                SvgPicture.asset('${AppAssets.svgLocation}shopping_cart.svg'),
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset('${MyStrings.svgLocation}notification.svg'),
+            child: SvgPicture.asset('${AppAssets.svgLocation}notification.svg'),
           ),
         ],
       ),
@@ -108,13 +110,13 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Featured Sellers',
+                    AppStrings.keyFeaturedSellers,
                     style: TextStyles.regular
-                        .copyWith(color: MyColors.golden, fontSize: 18.sp),
+                        .copyWith(color: AppColors.golden, fontSize: 18.sp),
                   ),
                   Text(
-                    'See All',
-                    style: TextStyles.regular.copyWith(color: MyColors.primary),
+                    AppStrings.keySeeAll,
+                    style: TextStyles.regular.copyWith(color: AppColors.primary),
                   ),
                 ],
               ),
@@ -133,22 +135,62 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                         SizedBox(
                           width: 56.w,
                           height: 56.h,
-                          child: const CircleAvatar(
+                          child: CircleAvatar(
                             radius: 50,
                             backgroundImage:
-                                AssetImage('assets/images/profile.jpg'),
+                                AssetImage('${AppAssets.imgLocation}card.png'),
                           ),
                         ),
-                        Text(
-                          'Shohei \nOhtani',
-                          style: TextStyles.regular
-                              .copyWith(color: MyColors.greyText),
-                        )
+                        SizedBox(
+                          width: 56.w,
+                          child: Text(
+                            'Shohei Ohtani',
+                            maxLines: 2,
+                            style: TextStyles.regular
+                                .copyWith(color: AppColors.greyText),
+                          ),
+                        ),
                       ],
                     ),
                   );
                 },
                 itemCount: 10,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppStrings.keyShop,
+                    style: TextStyles.regular
+                        .copyWith(color: AppColors.golden, fontSize: 18.sp),
+                  ),
+                  Text(
+                    AppStrings.keySeeAll,
+                    style: TextStyles.regular.copyWith(color: AppColors.primary),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 0.9.sw,
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 4,
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 1,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.5),
+                itemBuilder: (context, index) {
+                  return const ShopCard();
+                },
               ),
             ),
           ],
@@ -159,33 +201,33 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${MyStrings.svgLocation}home.svg'),
-                label: 'Home',
-                backgroundColor: MyColors.background),
+                icon: SvgPicture.asset('${AppAssets.svgLocation}home.svg'),
+                label:AppStrings.keyHome,
+                backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${MyStrings.svgLocation}portfolio.svg'),
-                label: 'Portfolio',
-                backgroundColor: MyColors.background),
+                icon: SvgPicture.asset('${AppAssets.svgLocation}portfolio.svg'),
+                label: AppStrings.keyPortfolio,
+                backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${MyStrings.svgLocation}store.svg'),
-                label: 'Store',
-                backgroundColor: MyColors.background),
+                icon: SvgPicture.asset('${AppAssets.svgLocation}store.svg'),
+                label: AppStrings.keyStore,
+                backgroundColor: AppColors.background),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset('${MyStrings.svgLocation}profile.svg'),
-                label: 'Profile',
-                backgroundColor: MyColors.background),
+                icon: SvgPicture.asset('${AppAssets.svgLocation}profile.svg'),
+                label: AppStrings.keyProfile,
+                backgroundColor: AppColors.background),
           ],
           selectedFontSize: 10.sp,
           unselectedFontSize: 10.sp,
-          backgroundColor: MyColors.background,
+          backgroundColor: AppColors.background,
           currentIndex: id,
           type: BottomNavigationBarType.shifting,
           showUnselectedLabels: true,
           selectedLabelStyle: TextStyles.regular
-              .copyWith(color: MyColors.primary, fontSize: 12.sp),
-          selectedItemColor: MyColors.primary,
+              .copyWith(color: AppColors.primary, fontSize: 12.sp),
+          selectedItemColor: AppColors.primary,
           unselectedLabelStyle: TextStyles.regular
-              .copyWith(color: MyColors.white, fontSize: 12.sp),
+              .copyWith(color: AppColors.white, fontSize: 12.sp),
           onTap: (index) {
             setState(
               () {

@@ -1,4 +1,4 @@
-import 'package:cardtrading/ui/utils/colors.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +11,7 @@ class SignInTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
+      child: TextFormField(
         onTapOutside: (pointer){
           FocusManager.instance.primaryFocus?.unfocus();
         },
@@ -22,7 +22,7 @@ class SignInTextField extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0.0,8.0,8.0,8.0),
             child: Text('+965'),
           ),
-          fillColor: MyColors.buttonBg,
+          fillColor: AppColors.buttonBg,
           filled: true,
           contentPadding: EdgeInsets.symmetric(vertical: 8.0.h,horizontal: 16.0.w),
           border: InputBorder.none,

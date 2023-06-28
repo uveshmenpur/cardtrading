@@ -1,5 +1,6 @@
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/assets.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,12 +35,12 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                         text: TextSpan(
                           text: index < 9 ? '0${index+1}' : '${index+1}',
                           style: TextStyles.regular
-                              .copyWith(color: MyColors.primary),
+                              .copyWith(color: AppColors.primary),
                           children: [
                             TextSpan(
                               text: '/$count',
                               style: TextStyles.regular
-                                  .copyWith(color: MyColors.greyText),
+                                  .copyWith(color: AppColors.greyText),
                             ),
                           ],
                         ),
@@ -49,7 +50,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Center(child: Image.asset('assets/images/card.png',width: 178.w,height: 300.h,fit: BoxFit.fill,)),
+                  child: Image.asset('${AppAssets.imgLocation}card.png',width: 178.w,height: 300.h,fit: BoxFit.fitWidth,),
                 ),
                 SizedBox(
                   width: 0.9.sw,
@@ -57,8 +58,8 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('1933 goudey babe',style: TextStyles.regular.copyWith(color: MyColors.white,fontSize: 16),),
-                      Text('PSA 5',style: TextStyles.regular.copyWith(color: MyColors.golden),),
+                      Text('1933 goudey babe',style: TextStyles.regular.copyWith(color: AppColors.white,fontSize: 16),),
+                      Text('PSA 5',style: TextStyles.regular.copyWith(color: AppColors.golden),),
                     ],
                   ),
                 ),
@@ -68,8 +69,8 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('ruth#181',style: TextStyles.regular.copyWith(color: MyColors.white,fontSize: 16),),
-                      Text('\$300.10',style: TextStyles.regular.copyWith(color: MyColors.primary),),
+                      Text('ruth#181',style: TextStyles.regular.copyWith(color: AppColors.white,fontSize: 16),),
+                      Text('\$300.10',style: TextStyles.regular.copyWith(color: AppColors.primary),),
                     ],
                   ),
                 ),

@@ -10,7 +10,7 @@ void main() {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,
           theme: ThemeData.dark().copyWith(
-            brightness: Brightness.dark
+              brightness: Brightness.dark
           ),
           home: const SplashScreen(),
         );

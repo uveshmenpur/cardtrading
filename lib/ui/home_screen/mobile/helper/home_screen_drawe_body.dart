@@ -1,8 +1,8 @@
-import 'package:cardtrading/ui/authentication/mobile/get_otp_mobile.dart';
+import 'package:cardtrading/ui/authentication/sign_in.dart';
 import 'package:cardtrading/ui/home_screen/mobile/home_screen_mobile.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/my_strings.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/assets.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,7 +39,7 @@ class HomeScreenDrawerBody extends StatelessWidget {
               title: Text(
                 list[index],
                 style: TextStyles.medium.copyWith(
-                    color: index == 0 ? MyColors.primary : MyColors.greyText),
+                    color: index == 0 ? AppColors.primary : AppColors.greyText),
               ),
               onTap: index == 1
                   ? () {
@@ -57,12 +57,12 @@ class HomeScreenDrawerBody extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const GetOtpMobile();
+                            return const SignIn();
                           },
                         ),
                       );
                     },
-              trailing: index == 0 ? null : SvgPicture.asset('${MyStrings.svgLocation}arrow_right.svg'),
+              trailing: index == 0 ? null : SvgPicture.asset('${AppAssets.svgLocation}arrow_right.svg'),
             );
           },
           separatorBuilder: (context, index) {

@@ -1,12 +1,16 @@
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+
 import 'package:flutter/material.dart';
 
 class CommonText extends StatelessWidget {
-  const CommonText({super.key, required this.text,this.weight = FontWeight.normal,this.fontSize = 18, this.align = TextAlign.start});
+  const CommonText({
+    super.key,
+    required this.text,
+    this.align = TextAlign.start,
+    required this.textStyles,
+  });
+
   final String text;
-  final FontWeight weight;
-  final double fontSize;
+  final TextStyle textStyles;
   final TextAlign align;
 
   @override
@@ -14,11 +18,7 @@ class CommonText extends StatelessWidget {
     return Text(
       text,
       textAlign: align,
-      style: TextStyles.regular.copyWith(
-        fontSize: fontSize,
-        color: MyColors.greyText,
-        fontWeight: weight,
-      ),
+      style: textStyles,
     );
   }
 }

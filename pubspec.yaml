@@ -84,12 +84,19 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf
-        - asset: assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
-        - asset: assets/fonts/Montserrat/static/Montserrat-Medium.ttf
-          style: normal
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora/Sora-Bold.ttf
+        - asset: assets/fonts/Sora/Sora-Light.ttf
+        - asset: assets/fonts/Sora/Sora-Medium.ttf
+        - asset: assets/fonts/Sora/Sora-Regular.ttf
 
   #   - family: Trajan Pro
   #     fonts:

@@ -1,8 +1,9 @@
-import 'package:cardtrading/ui/authentication/mobile/helper/get_otp_button.dart';
 import 'package:cardtrading/ui/authentication/mobile/helper/sign_in_text_field.dart';
 import 'package:cardtrading/ui/home_screen/home_screen.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:cardtrading/ui/utils/widget/common_text.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
@@ -14,76 +15,79 @@ class SignInMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.background,
-
-      ///AppBar
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: MyColors.background,
+        backgroundColor: AppColors.background,
         automaticallyImplyLeading: true,
-        title: const Text(
-          "Sign In",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          AppStrings.keySignIn,
+          style: TextStyles.bold.copyWith(fontSize: 16.sp),
         ),
         centerTitle: true,
       ),
-
-      ///Content of the body is wrapper in SingleChildScrollView to avoid overflow when the keyboard comes up and takes half of the screen height.
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: REdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: REdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 0.6.sw,
-
-                  ///CommonTitle is a title defined as a common widget in util folder
-                  child: CommonTitle(
-                    text: MyStrings.signInTitle,
-                    fontSize: 18.sp,
-                    weight: FontWeight.w500,
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 0.6.sw,
+                    child: const CommonTitle(
+                      text: AppStrings.keySignInTitle,
+                      weight: FontWeight.w500,
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 0.9.sw,
+                    child: CommonText(
+                      text: AppStrings.keySignInContent,
+                      textStyles: TextStyles.regular.copyWith(
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const SignInTextField(),
+                ],
               ),
-              Padding(
-                padding: REdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 0.9.sw,
-
-                  ///Common Text is a text defined as a common widget in util folder
-                  child: CommonText(
-                      text: MyStrings.signInContent, fontSize: 12.sp),
-                ),
-              ),
-              SizedBox(
-                width: 0.9.sw,
-                height: 20.h,
-              ),
-
-              ///SignIn Text Field for Phone number Defined in helper package
-              const SignInTextField(),
-            ],
+            ),
           ),
-        ),
-      ),
-      floatingActionButton: GetOtpButton(
-        text: 'Get Otp',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const HomeScreen();
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: CommonButton(
+              buttonPadding: const EdgeInsets.all(8.0),
+              prefixWidget: Text(
+                AppStrings.keyGetOtp,
+                style: TextStyles.semiBold.copyWith(
+                  color: AppColors.selectedButtonText,
+                  fontSize: 16.sp,
+                ),
+              ),
+              buttonText: '',
+              suffixWidget: const Icon(
+                Icons.arrow_forward_outlined,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const HomeScreen();
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
