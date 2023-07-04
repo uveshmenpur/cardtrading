@@ -1,5 +1,6 @@
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 403.h,
+      height: 415.h,
       child: ListView.builder(
         itemCount: 10,
         scrollDirection: Axis.horizontal,
@@ -30,7 +31,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       index == 0
-                          ? const CommonTitle(text: 'Featured Collection')
+                          ? const CommonTitle(text: AppStrings.keyFeaturedCollection)
                           : const Text(''),
                       RichText(
                         text: TextSpan(
@@ -61,41 +62,42 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                 SizedBox(
                   width: 0.9.sw,
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '1933 goudey babe',
-                        style: TextStyles.regular
-                            .copyWith(color: AppColors.white, fontSize: 16),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 0.4.sw,
+                            child: Text(
+                              '1933 goudey babe ruth#181',
+                              softWrap: true,
+                              maxLines: 2,
+                              style: TextStyles.regular
+                                  .copyWith(color: AppColors.white, fontSize: 16),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'PSA 5',
-                        style: TextStyles.regular
-                            .copyWith(color: AppColors.golden),
-                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'PSA 5',
+                            style: TextStyles.regular
+                                .copyWith(color: AppColors.golden, fontSize: 16),
+                          ),
+                          Text(
+                            '\$300.10',
+                            style: TextStyles.regular
+                                .copyWith(color: AppColors.primary),
+                          ),
+                        ],
+                      )
                     ],
                   ),
-                ),
-                SizedBox(
-                  width: 0.9.sw,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'ruth#181',
-                        style: TextStyles.regular
-                            .copyWith(color: AppColors.white, fontSize: 16),
-                      ),
-                      Text(
-                        '\$300.10',
-                        style: TextStyles.regular
-                            .copyWith(color: AppColors.primary),
-                      ),
-                    ],
-                  ),
-                ),
+                )
               ],
             ),
           );

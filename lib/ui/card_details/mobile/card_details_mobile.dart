@@ -1,4 +1,5 @@
 import 'package:cardtrading/ui/card_details/mobile/helper/card_details_icons.dart';
+import 'package:cardtrading/ui/checkout/checkout.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -36,7 +37,9 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
           AppStrings.keyCardDetail,
           style: TextStyles.medium.copyWith(fontSize: 16.sp),
         ),
-        automaticallyImplyLeading: true,
+        leading: IconButton(onPressed:(){
+          Navigator.pop(context);
+        }, icon: const Icon(Icons.arrow_back)),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.background,
@@ -225,6 +228,11 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 12.0),
         child: CommonButton(
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return const Checkout();
+            },),);
+          },
           buttonText: '',
           buttonPadding: const EdgeInsets.all(12.0),
           prefixWidget: Text(

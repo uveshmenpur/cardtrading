@@ -21,7 +21,14 @@ class GetOtpMobile extends StatelessWidget {
           AppStrings.keyVerification,
           style: TextStyles.bold.copyWith(fontSize: 16.sp),
         ),
-        automaticallyImplyLeading: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.background,
@@ -60,6 +67,7 @@ class GetOtpMobile extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       animationType: AnimationType.scale,
                       hintCharacter: ' ',
+                      cursorColor: AppColors.greyText,
                       hintStyle: TextStyles.regular
                           .copyWith(color: AppColors.greyText, fontSize: 26.sp),
                       pinTheme: PinTheme(

@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenDescription extends StatelessWidget {
-  const HomeScreenDescription({super.key, required this.title});
+  const HomeScreenDescription({super.key, required this.title,this.onTap});
   final String title;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +21,15 @@ class HomeScreenDescription extends StatelessWidget {
           Text(
             title,
             style: TextStyles.regular
-                .copyWith(color: AppColors.golden, fontSize: 18.sp),
+                .copyWith(color: AppColors.golden, fontSize: 16.sp),
           ),
-          Text(
-            AppStrings.keySeeAll,
-            style:
-            TextStyles.regular.copyWith(color: AppColors.primary),
+          InkWell(
+            onTap: onTap ?? (){},
+            child: Text(
+              AppStrings.keySeeAll,
+              style:
+              TextStyles.regular.copyWith(color: AppColors.primary),
+            ),
           ),
         ],
       ),

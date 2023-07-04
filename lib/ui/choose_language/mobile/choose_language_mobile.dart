@@ -62,15 +62,19 @@ class _ChooseLanguageMobileState extends State<ChooseLanguageMobile> {
                         padding: EdgeInsets.only(bottom: 25.h),
                         child: CommonButton(
                           align: TextAlign.left,
+                          buttonHeight: 46.h,
                           onPressed: () {
-                            setState(() {
-                              selectedLanguage = languages[index];
-                            });
+                            setState(
+                              () {
+                                selectedLanguage = languages[index];
+                              },
+                            );
                           },
                           buttonPadding: EdgeInsets.symmetric(horizontal: 15.w),
-                          buttonBackgroundColor: selectedLanguage == languages[index]
-                              ? AppColors.primary
-                              : AppColors.buttonBg,
+                          buttonBackgroundColor:
+                              selectedLanguage == languages[index]
+                                  ? AppColors.primary
+                                  : AppColors.buttonBg,
                           buttonText: languages[index],
                           suffixWidget: selectedLanguage == languages[index]
                               ? const Icon(
@@ -82,7 +86,8 @@ class _ChooseLanguageMobileState extends State<ChooseLanguageMobile> {
                             color: selectedLanguage == languages[index]
                                 ? AppColors.selectedButtonText
                                 : AppColors.buttonText,
-                            fontSize: 17.sp,
+                            fontSize: 14.sp,
+                            fontFamily: 'Sora',
                           ),
                         ),
                       );

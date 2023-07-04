@@ -16,6 +16,7 @@ class SignInTextField extends StatelessWidget {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         keyboardType: TextInputType.phone,
+        maxLength: 10,
         decoration: InputDecoration(
           hintText: 'XXXXX-XXXXX',
           prefix: const Padding(

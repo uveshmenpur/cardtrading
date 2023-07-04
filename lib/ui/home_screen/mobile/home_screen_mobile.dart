@@ -1,5 +1,7 @@
 import 'package:cardtrading/ui/authentication/get_otp.dart';
 import 'package:cardtrading/ui/card_details/card_details.dart';
+import 'package:cardtrading/ui/card_shop/card_shop.dart';
+import 'package:cardtrading/ui/featured_seller/featured_seller.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_description.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_divider.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
@@ -64,9 +66,33 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
             const HomeScreenDivider(),
             const HomeScreenFeaturedCollectionList(),
             const HomeScreenDivider(),
-            const HomeScreenDescription(title: AppStrings.keyFeaturedSellers),
+            HomeScreenDescription(
+              title: AppStrings.keyFeaturedSellers,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const FeaturedSeller();
+                    },
+                  ),
+                );
+              },
+            ),
             const HomeScreenProfiles(),
-            const HomeScreenDescription(title: AppStrings.keyShop),
+            HomeScreenDescription(
+              title: AppStrings.keyShop,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const CardShop();
+                    },
+                  ),
+                );
+              },
+            ),
             Container(
               width: 0.9.sw,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -75,12 +101,25 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                 itemCount: 6,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: 2,
-                    crossAxisSpacing: 1,
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.5),
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 1,
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.5,
+                ),
                 itemBuilder: (context, index) {
-                  return ShopCard(index: index);
+                  return ShopCard(
+                    index: index,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const CardDetails();
+                          },
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
@@ -108,34 +147,33 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
                 icon: Container(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    decoration: BoxDecoration(
-                      border: BorderDirectional(
-                        top: BorderSide(
-                          color:
-                              id == 1 ? AppColors.primary : Colors.transparent,
-                          width: 2.0,
-                        ),
+                  padding: const EdgeInsets.only(top: 8.0),
+                  decoration: BoxDecoration(
+                    border: BorderDirectional(
+                      top: BorderSide(
+                        color: id == 1 ? AppColors.primary : Colors.transparent,
+                        width: 2.0,
                       ),
                     ),
-                    child: SvgPicture.asset(
-                        '${AppAssets.svgLocation}portfolio.svg'),),
+                  ),
+                  child:
+                      SvgPicture.asset('${AppAssets.svgLocation}portfolio.svg'),
+                ),
                 label: AppStrings.keyPortfolio,
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
                 icon: Container(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    decoration: BoxDecoration(
-                      border: BorderDirectional(
-                        top: BorderSide(
-                          color:
-                              id == 2 ? AppColors.primary : Colors.transparent,
-                          width: 2.0,
-                        ),
+                  padding: const EdgeInsets.only(top: 8.0),
+                  decoration: BoxDecoration(
+                    border: BorderDirectional(
+                      top: BorderSide(
+                        color: id == 2 ? AppColors.primary : Colors.transparent,
+                        width: 2.0,
                       ),
                     ),
-                    child:
-                        SvgPicture.asset('${AppAssets.svgLocation}store.svg'),),
+                  ),
+                  child: SvgPicture.asset('${AppAssets.svgLocation}store.svg'),
+                ),
                 label: AppStrings.keyStore,
                 backgroundColor: AppColors.background),
             BottomNavigationBarItem(
@@ -185,7 +223,7 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const CardDetails();
+                            return const CardShop();
                           },
                         ),
                       )

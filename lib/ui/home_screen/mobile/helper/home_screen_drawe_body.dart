@@ -1,5 +1,8 @@
+import 'package:cardtrading/ui/about_us/about_us.dart';
+import 'package:cardtrading/ui/about_us/subscription_plan.dart';
 import 'package:cardtrading/ui/authentication/sign_in.dart';
 import 'package:cardtrading/ui/home_screen/mobile/home_screen_mobile.dart';
+import 'package:cardtrading/ui/terms_and_condition/terms_and_condition.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
@@ -41,7 +44,7 @@ class HomeScreenDrawerBody extends StatelessWidget {
                 style: TextStyles.medium.copyWith(
                     color: index == 0 ? AppColors.primary : AppColors.greyText),
               ),
-              onTap: index == 1
+              onTap: index == 0
                   ? () {
                       Navigator.push(
                         context,
@@ -52,17 +55,52 @@ class HomeScreenDrawerBody extends StatelessWidget {
                         ),
                       );
                     }
-                  : () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const SignIn();
-                          },
-                        ),
-                      );
-                    },
-              trailing: index == 0 ? null : SvgPicture.asset('${AppAssets.svgLocation}arrow_right.svg'),
+                  : index == 3
+                      ? () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const TermsAndCondition();
+                              },
+                            ),
+                          );
+                        }
+                      : index == 5
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const SubscriptionPlan();
+                                  },
+                                ),
+                              );
+                            }
+                          : index == 9
+                              ? () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const AboutUs();
+                                      },
+                                    ),
+                                  );
+                                }
+                              : () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const SignIn();
+                                      },
+                                    ),
+                                  );
+                                },
+              trailing: index == 0
+                  ? null
+                  : SvgPicture.asset('${AppAssets.svgLocation}arrow_right.svg'),
             );
           },
           separatorBuilder: (context, index) {

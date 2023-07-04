@@ -18,7 +18,14 @@ class SignInMobile extends StatelessWidget {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        automaticallyImplyLeading: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+          ),
+        ),
         title: Text(
           AppStrings.keySignIn,
           style: TextStyles.bold.copyWith(fontSize: 16.sp),

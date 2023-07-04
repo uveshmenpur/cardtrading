@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeScreenDrawer extends StatelessWidget {
+class HomeScreenDrawer extends StatefulWidget {
   const HomeScreenDrawer({super.key});
+
+  @override
+  State<HomeScreenDrawer> createState() => _HomeScreenDrawerState();
+}
+
+class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
+  String url = '${AppAssets.svgLocation}dark_mode.svg';
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +35,20 @@ class HomeScreenDrawer extends StatelessWidget {
         title: const Text(AppStrings.keyWalterWhite),
         centerTitle: true,
         actions: [
-          Padding(
-            padding: EdgeInsets.all(8.0.r),
-            child: SvgPicture.asset('${AppAssets.svgLocation}dark_mode.svg'),
+          InkWell(
+            onTap: () {
+              setState(
+                () {
+                  url == '${AppAssets.svgLocation}dark_mode.svg'
+                      ? url = '${AppAssets.svgLocation}light_mode.svg'
+                      : url = '${AppAssets.svgLocation}dark_mode.svg';
+                },
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8.0.r),
+              child: SvgPicture.asset(url),
+            ),
           ),
         ],
       ),

@@ -8,14 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeScreenProfiles extends StatelessWidget {
   const HomeScreenProfiles({super.key});
 
-  static const List profiles = [
-    AppStrings.keyShoheiOhtani,
-    AppStrings.keyAnthonyVolpe,
-    AppStrings.keyGengerDolby,
-    AppStrings.keyJordanWalker,
-    AppStrings.keyRandyJohnson
-  ];
-
   @override
   Widget build(BuildContext context) {
     return
@@ -42,10 +34,11 @@ class HomeScreenProfiles extends StatelessWidget {
                   SizedBox(
                     width: 56.w,
                     child: Text(
-                      profiles[index % 5],
+                      AppStrings.profiles[index % 5],
+                      textAlign: TextAlign.center,
                       maxLines: 2,
                       style: TextStyles.regular
-                          .copyWith(color: AppColors.greyText),
+                          .copyWith(color: AppColors.greyText,fontSize: 12.sp),
                     ),
                   ),
                 ],

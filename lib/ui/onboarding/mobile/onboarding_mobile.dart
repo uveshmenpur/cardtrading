@@ -1,4 +1,4 @@
-import 'package:cardtrading/ui/home_screen/home_screen.dart';
+import 'package:cardtrading/ui/authentication/get_otp.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -151,17 +151,19 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
             selectedPage == 2
                 ? SliderButton(
                     backgroundColor: AppColors.background,
+                    width: 335.w,
                     action: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return const HomeScreen();
+                            return const GetOtp();
                           },
                         ),
                       );
                     },
                     radius: 10.r,
+                    alignLabel: Alignment.center,
                     highlightedColor: AppColors.primary,
                     baseColor: AppColors.primary,
                     label: Text(

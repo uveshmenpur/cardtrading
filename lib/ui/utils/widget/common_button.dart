@@ -17,6 +17,7 @@ class CommonButton extends StatelessWidget {
   final EdgeInsetsGeometry? buttonPadding;
   final TextAlign? align;
   final double? buttonHeight;
+  final MainAxisSize? mainAxisSize;
 
   const CommonButton({
     super.key,
@@ -32,7 +33,7 @@ class CommonButton extends StatelessWidget {
     this.buttonBorderRadius,
     this.buttonPadding,
     this.buttonHeight,
-    this.align,
+    this.align, this.mainAxisSize,
   });
 
   @override
@@ -50,6 +51,7 @@ class CommonButton extends StatelessWidget {
           color: buttonBackgroundColor ?? AppColors.primary,
         ),
         child: Row(
+          mainAxisSize: mainAxisSize ?? MainAxisSize.max,
           children: [
             prefixWidget ?? const SizedBox(),
             Expanded(
