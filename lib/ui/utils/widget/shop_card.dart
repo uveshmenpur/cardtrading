@@ -1,3 +1,4 @@
+import 'package:cardtrading/ui/card_details/card_details.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -6,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopCard extends StatefulWidget {
-  const ShopCard({super.key, required this.index, required this.onTap});
+  const ShopCard({super.key, required this.index, this.onTap});
 
   final int index;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   @override
   State<ShopCard> createState() => _ShopCardState();
@@ -21,7 +22,19 @@ class _ShopCardState extends State<ShopCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap: widget.onTap ??
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return CardDetails(
+                      url:
+                          '${AppAssets.imgLocation}card_${widget.index % 4}.png');
+                },
+              ),
+            );
+          },
       child: Card(
         elevation: 0,
         color: AppColors.cardBackgroundColor,
@@ -33,8 +46,8 @@ class _ShopCardState extends State<ShopCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 4.0, vertical: 2.0),
                   color: AppColors.golden,
                   child: Text(
                     AppStrings.keyCardExclusive,
@@ -62,7 +75,7 @@ class _ShopCardState extends State<ShopCard> {
               ],
             ),
             Image.asset(
-              '${AppAssets.imgLocation}card_${widget.index % 4}.png' ,
+              '${AppAssets.imgLocation}card_${widget.index % 4}.png',
               width: 100.w,
               height: 150.h,
               fit: BoxFit.fill,

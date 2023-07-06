@@ -16,7 +16,7 @@ class CommonTitle extends StatelessWidget {
     return Text(
       text,
       textAlign: align,
-      maxLines: 2,
+      maxLines: 3,
       style: TextStyle(
         fontFamily: TextStyles.fontFamily,
         fontSize: fontSize.sp,

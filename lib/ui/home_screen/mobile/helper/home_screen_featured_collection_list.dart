@@ -72,7 +72,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                           SizedBox(
                             width: 0.4.sw,
                             child: Text(
-                              '1933 goudey babe ruth#181',
+                              AppStrings.key1993,
                               softWrap: true,
                               maxLines: 2,
                               style: TextStyles.regular

@@ -1,5 +1,4 @@
 import 'package:cardtrading/ui/authentication/get_otp.dart';
-import 'package:cardtrading/ui/card_details/card_details.dart';
 import 'package:cardtrading/ui/card_shop/card_shop.dart';
 import 'package:cardtrading/ui/home_screen/home_screen.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
@@ -111,16 +110,6 @@ class _CardShopMobileState extends State<CardShopMobile> {
                       itemBuilder: (context, index) {
                         return ShopCard(
                           index: index,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const CardDetails();
-                                },
-                              ),
-                            );
-                          },
                         );
                       },
                     ),

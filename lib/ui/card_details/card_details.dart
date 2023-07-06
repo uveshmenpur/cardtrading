@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class CardDetails extends StatelessWidget {
-  const CardDetails({super.key});
+  const CardDetails({super.key, required this.url});
+  final String url;
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context,sizingInformation){
       if(sizingInformation.isMobile){
-        return const CardDetailsMobile();
+        return CardDetailsMobile(url: url,);
       }
-      return const CardDetailsMobile();
+      return CardDetailsMobile(url: url,);
     });
   }
 }

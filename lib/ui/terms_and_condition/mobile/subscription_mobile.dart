@@ -1,6 +1,6 @@
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
-import 'package:cardtrading/ui/terms_and_condition/mobile/helper/terms_and_condition_card.dart';
-import 'package:cardtrading/ui/terms_and_condition/mobile/helper/terms_and_condition_screen.dart';
+import 'package:cardtrading/ui/terms_and_condition/mobile/helper/subscription_card.dart';
+import 'package:cardtrading/ui/terms_and_condition/mobile/helper/subscription_screen.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -11,15 +11,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class TermsAndConditionMobile extends StatefulWidget {
-  const TermsAndConditionMobile({super.key});
+class SubscriptionMobile extends StatefulWidget {
+  const SubscriptionMobile({super.key});
+
 
   @override
-  State<TermsAndConditionMobile> createState() =>
-      _TermsAndConditionMobileState();
+  State<SubscriptionMobile> createState() =>
+      _SubscriptionMobileState();
 }
 
-class _TermsAndConditionMobileState extends State<TermsAndConditionMobile> {
+/// NOTE: This Screen is for Subscription Plan Module and not for Terms And Condition Module It was named by mistake I will change it soon
+
+class _SubscriptionMobileState extends State<SubscriptionMobile> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
 
   @override
@@ -72,21 +75,21 @@ class _TermsAndConditionMobileState extends State<TermsAndConditionMobile> {
             SizedBox(
               height: 20.h,
             ),
-            TermsAndConditionCard(
+            SubscriptionPlanCard(
               subscriptionPlan: AppStrings.keyEliteSubscriptionPlan,
               planBenefits: AppStrings.keyElitePlanBenefits,
               url: '${AppAssets.svgLocation}golden.svg',
               borderColor: AppColors.cardGolden,
               planKd: AppStrings.keyEliteKd,
-              termsAndConditionOne: AppStrings.keyEliteConditionOne,
-              termsAndConditionTwo: AppStrings.keyEliteConditionTwo,
-              termsAndConditionThree: AppStrings.keyEliteConditionThree,
+              subscriptionPlanOne: AppStrings.keyEliteConditionOne,
+              subscriptionPlanTwo: AppStrings.keyEliteConditionTwo,
+              subscriptionPlanThree: AppStrings.keyEliteConditionThree,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return TermsAndConditionScreen(
+                      return SubscriptionPlanScreen(
                         url: '${AppAssets.svgLocation}golden.svg',
                         cardLimitOne: AppStrings.keyEliteCardDetailsOne,
                         cardLimitTwo: AppStrings.keyEliteCardDetailsTwo,
@@ -105,20 +108,20 @@ class _TermsAndConditionMobileState extends State<TermsAndConditionMobile> {
             SizedBox(
               height: 20.h,
             ),
-            TermsAndConditionCard(
+            SubscriptionPlanCard(
               subscriptionPlan: AppStrings.keyBasicSubscriptionPlan,
               planBenefits: AppStrings.keyBasicPlanBenefits,
               url: '${AppAssets.svgLocation}silver.svg',
               borderColor: AppColors.cardSilver,
               planKd: AppStrings.keyBasicKd,
-              termsAndConditionOne: AppStrings.keyBasicConditionOne,
-              termsAndConditionTwo: AppStrings.keyBasicConditionTwo,
+              subscriptionPlanOne: AppStrings.keyBasicConditionOne,
+              subscriptionPlanTwo: AppStrings.keyBasicConditionTwo,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return TermsAndConditionScreen(
+                      return SubscriptionPlanScreen(
                         url: '${AppAssets.svgLocation}silver.svg',
                         cardLimitOne: AppStrings.keyBasicCardDetailsOne,
                         cardLimitTwo: AppStrings.keyBasicCardDetailsTwo,
@@ -135,20 +138,20 @@ class _TermsAndConditionMobileState extends State<TermsAndConditionMobile> {
             SizedBox(
               height: 20.h,
             ),
-            TermsAndConditionCard(
+            SubscriptionPlanCard(
               subscriptionPlan: AppStrings.keyPremiumSubscriptionPlan,
               planBenefits: AppStrings.keyPremiumPlanBenefits,
               url: '${AppAssets.svgLocation}bronze.svg',
               borderColor: AppColors.cardBronze,
               planKd: AppStrings.keyPremiumKd,
-              termsAndConditionOne: AppStrings.keyPremiumConditionOne,
-              termsAndConditionTwo: AppStrings.keyPremiumConditionTwo,
+              subscriptionPlanOne: AppStrings.keyPremiumConditionOne,
+              subscriptionPlanTwo: AppStrings.keyPremiumConditionTwo,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return TermsAndConditionScreen(
+                      return SubscriptionPlanScreen(
                         url: '${AppAssets.svgLocation}bronze.svg',
                         cardLimitOne: AppStrings.keyPremiumCardDetailsOne,
                         cardLimitTwo: AppStrings.keyPremiumCardDetailsTwo,

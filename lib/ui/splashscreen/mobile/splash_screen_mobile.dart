@@ -18,7 +18,7 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
   void initState() {
     super.initState();
 
-    //Code to redirect to the onboarding screen in 2 second
+    ///Code to redirect to the onboarding screen
     Future.delayed(
       const Duration(seconds: 2),
       () => Navigator.pushReplacement(
@@ -34,28 +34,32 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.background,
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppStrings.keyCard,
-                style: TextStyles.bold.copyWith(
-                  color: AppColors.primary,
-                  fontSize: 50,
-                ),
-              ),
-              Text(
-                AppStrings.keyBuyAndSell,
-                style: TextStyles.regular.copyWith(
-                  color: AppColors.white,
-                  fontSize: 16
-                ),
-              ),
-            ],
+        body: _bodyWidget(),
+    );
+  }
+
+  ///Body Widget
+  Widget _bodyWidget(){
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            AppStrings.keyCard,
+            style: TextStyles.bold.copyWith(
+              color: AppColors.primary,
+              fontSize: 50,
+            ),
           ),
-        ),
+          Text(
+            AppStrings.keyBuyAndSell,
+            style: TextStyles.medium.copyWith(
+                color: AppColors.white,
+                fontSize: 16
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

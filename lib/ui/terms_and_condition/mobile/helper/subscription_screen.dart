@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class TermsAndConditionScreen extends StatelessWidget {
-  TermsAndConditionScreen(
+class SubscriptionPlanScreen extends StatelessWidget {
+  SubscriptionPlanScreen(
       {super.key,
       required this.url,
       required this.cardLimitOne,

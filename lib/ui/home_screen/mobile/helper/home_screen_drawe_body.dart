@@ -1,8 +1,8 @@
 import 'package:cardtrading/ui/about_us/about_us.dart';
-import 'package:cardtrading/ui/about_us/subscription_plan.dart';
+import 'package:cardtrading/ui/about_us/terms_and_condition.dart';
 import 'package:cardtrading/ui/authentication/sign_in.dart';
 import 'package:cardtrading/ui/home_screen/mobile/home_screen_mobile.dart';
-import 'package:cardtrading/ui/terms_and_condition/terms_and_condition.dart';
+import 'package:cardtrading/ui/terms_and_condition/subscription.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
@@ -61,7 +61,7 @@ class HomeScreenDrawerBody extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const TermsAndCondition();
+                                return const Subscription();
                               },
                             ),
                           );
@@ -72,7 +72,7 @@ class HomeScreenDrawerBody extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const SubscriptionPlan();
+                                    return const TermsAndCondition();
                                   },
                                 ),
                               );

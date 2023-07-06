@@ -1,4 +1,4 @@
-import 'package:cardtrading/ui/authentication/get_otp.dart';
+import 'package:cardtrading/ui/authentication/sign_in.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -35,7 +35,7 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
   animateToNextPage() {
     pageController.animateToPage(
       selectedPage,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 250),
       curve: Curves.easeIn,
     );
   }
@@ -44,166 +44,189 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          child: selectedPage != 2
-                              ? Text(
-                                  AppStrings.keySkip,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyles.regular.copyWith(
-                                    color: AppColors.greyText,
-                                    fontSize: 14.sp,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          onPressed: () {
-                            setState(() {
-                              selectedPage = onBoardingTitle.length - 1;
-                              animateToNextPage();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+      body: _bodyWidget(context),
+    );
+  }
 
-                    ///space left out for animation will implement when I get json file from designer
-                    SizedBox(
-                      height: 0.7.sh,
-                      child: PageView(
-                        onPageChanged: (pageIndex) {
-                          setState(() {
-                            selectedPage = pageIndex;
-                          });
-                        },
-                        controller: pageController,
-                        children:
-                            List.generate(onBoardingTitle.length, (index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 0.5.sh),
-                              Text(
-                                onBoardingTitle[index],
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                style: TextStyles.bold.copyWith(
-                                  fontSize: 24.sp,
-                                  color: AppColors.golden,
-                                ),
-                              ),
-                              Text(
-                                onBoardingContent[index],
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                style: TextStyles.regular.copyWith(
-                                  fontSize: 14.sp,
-                                  color: AppColors.greyText,
-                                ),
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      children: List.generate(
-                        onBoardingTitle.length,
-                        (index) {
-                          return Container(
-                            margin: EdgeInsets.only(right: 5.w),
-                            height: 6.h,
-                            width: selectedPage == index ? 20.w : 6.h,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: selectedPage == index
-                                    ? AppColors.primary
-                                    : Colors.transparent,
-                              ),
-                              color: selectedPage == index
-                                  ? Colors.transparent
-                                  : AppColors.indicatorColor,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+  ///Body Widget
+  Widget _bodyWidget(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 25.h,
                 ),
-              ),
-            ),
-            selectedPage == 2
-                ? SliderButton(
-                    backgroundColor: AppColors.background,
-                    width: 335.w,
-                    action: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const GetOtp();
-                          },
-                        ),
+
+                ///Skip Button
+                _skipButton(),
+
+                ///space left out for animation will implement when I get json file from designer
+                SizedBox(
+                  height: 0.7.sh,
+                  child: PageView(
+                    onPageChanged: (pageIndex) {
+                      setState(
+                        () {
+                          selectedPage = pageIndex;
+                        },
                       );
                     },
-                    radius: 10.r,
-                    alignLabel: Alignment.center,
-                    highlightedColor: AppColors.primary,
-                    baseColor: AppColors.primary,
-                    label: Text(
-                      AppStrings.keySwipeToGetStarted,
-                      textAlign: TextAlign.center,
-                      style: TextStyles.medium
-                          .copyWith(color: AppColors.primary, fontSize: 16.sp),
-                    ),
-                    child: Container(
-                      color: AppColors.background,
-                      child: SvgPicture.asset(
-                        '${AppAssets.svgLocation}swipeicon.svg',
-                        matchTextDirection: true,
-                      ),
-                    ),
-                  )
-
-                ///If we are on 1st or 2nd on-boarding screen than display Next Button
-                : SizedBox(
-                    height: 42.h,
-                    width: 0.9.sw,
-                    child: Center(
-                      child: CommonButton(
-                        buttonText: AppStrings.keyNext,
-                        onPressed: () {
-                          setState(
-                            () {
-                              selectedPage++;
-                              animateToNextPage();
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    controller: pageController,
+                    children: List.generate(onBoardingTitle.length, (index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: Container(),),
+                          Text(
+                            onBoardingTitle[index],
+                            maxLines: 2,
+                            style: TextStyles.semiBold.copyWith(
+                              fontSize: 24.sp,
+                              color: AppColors.golden,
+                            ),
+                            softWrap: true,
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Text(
+                            onBoardingContent[index],
+                            maxLines: 2,
+                            style: TextStyles.regular.copyWith(
+                              color: AppColors.greyText,
+                            ),
+                            softWrap: true,
+                          ),
+                        ],
+                      );
+                    }),
                   ),
-          ],
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                ///Page Indicator Boxes
+                _pageIndicator(),
+              ],
+            ),
+          ),
+
+          ///Display Common Button on first 2 pages and Slider on 3rd page
+          selectedPage == 2 ? _sliderButton(context) : _commonButton(),
+        ],
+      ),
+    );
+  }
+
+  Row _skipButton() {
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    child: selectedPage != 2
+                        ? Text(
+                            AppStrings.keySkip,
+                            textAlign: TextAlign.start,
+                            style: TextStyles.light.copyWith(
+                              color: AppColors.checkoutTextColor,
+                            ),
+                          )
+                        : const SizedBox(),
+                    onPressed: () {
+                      setState(() {
+                        selectedPage = onBoardingTitle.length - 1;
+                        animateToNextPage();
+                      });
+                    },
+                  ),
+                ],
+              );
+  }
+
+  ///Common Button
+  Widget _commonButton() {
+    return CommonButton(
+      buttonHeight: 50.h,
+      buttonText: AppStrings.keyNext,
+      buttonTextStyle: TextStyles.semiBold.copyWith(
+        fontSize: 16.sp,
+        color: AppColors.selectedButtonText,
+      ),
+      onPressed: () {
+        setState(
+          () {
+            selectedPage++;
+            animateToNextPage();
+          },
+        );
+      },
+    );
+  }
+
+  ///Slider Button
+  Widget _sliderButton(BuildContext context) {
+    return SliderButton(
+      backgroundColor: AppColors.background,
+      width: double.infinity,
+      action: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return const SignIn();
+            },
+          ),
+        );
+      },
+      alignLabel: Alignment.center,
+      highlightedColor: AppColors.primary,
+      baseColor: AppColors.primary,
+      label: Text(
+        AppStrings.keySwipeToGetStarted,
+        textAlign: TextAlign.center,
+        style: TextStyles.semiBold.copyWith(
+          color: AppColors.primary,
+          fontSize: 16.sp,
         ),
       ),
+      child: Container(
+        color: Colors.transparent,
+        child: SvgPicture.asset(
+          '${AppAssets.svgLocation}swipeicon.svg',
+          matchTextDirection: true,
+        ),
+      ),
+    );
+  }
 
-      ///If we are oon third on-boarding screen than display Slider Button
+  ///Page Indicators
+  Widget _pageIndicator() {
+    return Row(
+      children: List.generate(
+        onBoardingTitle.length,
+        (index) {
+          return Container(
+            margin: EdgeInsets.only(right: 5.w),
+            height: 6.h,
+            width: selectedPage == index ? 20.w : 6.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: selectedPage == index
+                    ? AppColors.primary
+                    : Colors.transparent,
+              ),
+              color: selectedPage == index
+                  ? Colors.transparent
+                  : AppColors.indicatorColor,
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ class AboutUsMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///Common Screen for both About Us and Terms And Condition as both pages have same content
     return const AboutUsScreen(title: AppStrings.keyAboutUs);
   }
 }

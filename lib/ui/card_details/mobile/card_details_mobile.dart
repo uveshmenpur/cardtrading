@@ -1,5 +1,6 @@
 import 'package:cardtrading/ui/card_details/mobile/helper/card_details_icons.dart';
 import 'package:cardtrading/ui/checkout/checkout.dart';
+import 'package:cardtrading/ui/home_screen/home_screen.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CardDetailsMobile extends StatefulWidget {
-  const CardDetailsMobile({super.key});
+  const CardDetailsMobile({super.key, required this.url});
+
+  final String url;
 
   @override
   State<CardDetailsMobile> createState() => _CardDetailsMobileState();
@@ -37,9 +40,12 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
           AppStrings.keyCardDetail,
           style: TextStyles.medium.copyWith(fontSize: 16.sp),
         ),
-        leading: IconButton(onPressed:(){
-          Navigator.pop(context);
-        }, icon: const Icon(Icons.arrow_back)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
+            icon: const Icon(Icons.arrow_back)),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.background,
@@ -49,22 +55,18 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Divider(
-              thickness: 1.0,
-            ),
+            _divider(),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               height: 340.h,
               child: Image.asset(
-                '${AppAssets.imgLocation}card_0.png',
+                widget.url,
                 width: 200.w,
                 height: 300.h,
                 fit: BoxFit.fill,
               ),
             ),
-            const Divider(
-              thickness: 1.0,
-            ),
+            _divider(),
             ListTile(
               title: Text(
                 AppStrings.keyCardDescription,
@@ -110,8 +112,8 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                       child: Center(
                         child: Text(
                           AppStrings.keyCardExclusive,
-                          style: TextStyles.semiBold.copyWith(
-                              color: Colors.black, fontSize: 12.sp),
+                          style: TextStyles.semiBold
+                              .copyWith(color: Colors.black, fontSize: 12.sp),
                         ),
                       ),
                     ),
@@ -122,9 +124,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                 ),
               ),
             ),
-            const Divider(
-              thickness: 1.0,
-            ),
+            _divider(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
@@ -133,9 +133,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                     .copyWith(fontSize: 12.sp, color: AppColors.greyText),
               ),
             ),
-            const Divider(
-              thickness: 1.0,
-            ),
+            _divider(),
             Container(
               padding: const EdgeInsets.all(20.0),
               alignment: Alignment.topLeft,
@@ -150,8 +148,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                         text: TextSpan(
                           text: keys[index],
                           style: TextStyles.regular.copyWith(
-                              color: AppColors.lightGolden,
-                              fontSize: 12.sp),
+                              color: AppColors.lightGolden, fontSize: 12.sp),
                           children: [
                             TextSpan(
                               text: values[index],
@@ -169,9 +166,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                 ],
               ),
             ),
-            const Divider(
-              thickness: 1.0,
-            ),
+            _divider(),
             Container(
               width: double.infinity,
               height: 0.25.sh,
@@ -226,12 +221,17 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: CommonButton(
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return const Checkout();
-            },),);
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const Checkout();
+                },
+              ),
+            );
           },
           buttonText: '',
           buttonPadding: const EdgeInsets.all(12.0),
@@ -247,7 +247,13 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Divider _divider() {
+    return const Divider(
+      thickness: 1.0,
+      color: AppColors.dividerColor,
     );
   }
 }

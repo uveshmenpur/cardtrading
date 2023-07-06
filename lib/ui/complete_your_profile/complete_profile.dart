@@ -1,17 +1,17 @@
-import 'package:cardtrading/ui/authentication/mobile/sign_in_mobile.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/complete_profile_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class SignIn extends StatelessWidget {
-  const  SignIn({super.key});
+class CompleteProfile extends StatelessWidget {
+  const CompleteProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context,sizingInformation){
       if(sizingInformation.isMobile){
-        return const SignInMobile();
+        return const CompleteProfileMobile();
       }
-      return const SignInMobile();
+      return const CompleteProfileMobile();
     });
   }
 }

@@ -23,6 +23,9 @@ class AppStrings {
   static const keyCard = 'Card';
   static const keyGetOtp = 'Get Otp';
   static const keySignIn = 'Sign In';
+  static const keySignUp = 'Sign Up';
+  static const keyEnterYourAddress = 'Enter Your Current Address Below';
+  static const keyEnterYourAddressContent = 'Enter Your Current Address Below';
   static const keyCardPrice2 = '999.87KD';
   static const keyAddToCart = 'Add To Cart';
   static const keyPortfolio = 'Portfolio';
@@ -64,13 +67,16 @@ class AppStrings {
   static const keyVerification = 'Verification';
   static const keyCardDetail = 'Card Detail';
   static const keyCart = 'Cart';
+  static const keyHintText = 'XXXXX-XXXXX';
   static const keySwipeToGetStarted = 'Swipe to get started';
   static const keyCodeNotReceived = 'Did Not Receive A Code?';
-  static const keyEnterOtpHere = 'Enter Your 6 Digit OTP Here!';
+  static const keyEnterOtpHere = 'Enter Your\n6 Digit OTP Here!';
   static const keyExpressShipping = 'Express Shipping';
   static const keyAuthenticGuarantee = 'Authentic Guarantee';
   static const keySecurePayment = 'Secure Payment';
   static const keyTotalAmount = 'Total Amount';
+  static const keyBannerSubtitle =
+      'Buy cards on our Fixed Price marketplace or in bi-weekly Liquid.';
   static const keyTotalAmountValue = '4,29,394.00 KD';
   static const keyDiscount = 'Discount';
   static const keyDeliveryCharges = 'Delivery Charges';
@@ -78,6 +84,10 @@ class AppStrings {
   static const keySubTotalValue = '3,86,942.60 KD';
   static const keyDash = '-';
   static const keyCheckout = 'Checkout';
+  static const keyBuy = 'Buy ';
+  static const keyWith = 'with ';
+  static const key1993 = '1933 goudey babe ruth#181';
+  static const keyConfidence = 'Confidence';
   static const keySearchHere = 'Search Here';
   static const keySubscriptionPlan = 'Subscription Plan';
   static const keyChooseYourPlan = 'Choose Your Plan';
@@ -91,7 +101,15 @@ class AppStrings {
       'Unlock Advanced Features For Trading Cards.';
   static const keyBasicPlanBenefits =
       'Access To Essential Features For Trading Cards.';
+  static const keyCompleteYourProfile = 'Complete Your Profile';
+  static const keyCompleteYourProfileContent =
+      'Please Enter Your Personal Detail By That Verify Your Date And Move Further.';
+  static const keyEnterYourPersonalDetails = 'Enter Your Personal Details Here';
   static const keyEliteKd = '60 KD';
+  static const keyUsername = 'Username';
+  static const keyEnterReferral = 'Enter your Referral Code';
+  static const keyApply = 'Apply';
+  static const keyHaveReferral = 'I Have A Referral Code.';
   static const keyPremiumKd = '35 KD';
   static const keyBasicKd = '10 KD';
   static const keyEliteConditionOne = '70 Card Limit';
@@ -102,6 +120,7 @@ class AppStrings {
   static const keyBasicConditionOne = '10 Card Limit';
   static const keyBasicConditionTwo = '100 Rewards Points You Get';
   static const keyCardLimit = 'Card Limit';
+  static const keyKeepGoing = 'Keep Going';
   static const keyRewardsPoint = 'Rewards Point';
   static const keyVerifiedBadge = 'Verified Badge';
   static const keyCommonParagraphTitle = 'Service We Offer';

@@ -19,6 +19,7 @@ class AboutUsScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.background,
+        ///Opens Drawer
         leading: IconButton(
           icon: SvgPicture.asset('${AppAssets.svgLocation}menu.svg'),
           onPressed: () {
@@ -46,6 +47,7 @@ class AboutUsScreen extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
+          ///Common Paragraph
           CommonParagraph(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
@@ -54,6 +56,7 @@ class AboutUsScreen extends StatelessWidget {
               color: AppColors.indicatorColor,
             ),
           ),
+          ///Common Paragraph
           CommonParagraph(),
         ],
       ),

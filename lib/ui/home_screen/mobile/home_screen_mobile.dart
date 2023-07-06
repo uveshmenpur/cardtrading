@@ -1,5 +1,4 @@
 import 'package:cardtrading/ui/authentication/get_otp.dart';
-import 'package:cardtrading/ui/card_details/card_details.dart';
 import 'package:cardtrading/ui/card_shop/card_shop.dart';
 import 'package:cardtrading/ui/featured_seller/featured_seller.dart';
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_description.dart';
@@ -27,6 +26,18 @@ class HomeScreenMobile extends StatefulWidget {
 
 class _HomeScreenMobileState extends State<HomeScreenMobile> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+
+  final appBarActionList = [
+    '${AppAssets.svgLocation}search.svg',
+    '${AppAssets.svgLocation}shopping_cart.svg',
+    '${AppAssets.svgLocation}notification.svg',
+  ];
+  final bottomNavigationBarSvgPath = [
+    '${AppAssets.svgLocation}home.svg',
+    '${AppAssets.svgLocation}portfolio.svg',
+    '${AppAssets.svgLocation}store.svg',
+    '${AppAssets.svgLocation}profile.svg',
+  ];
   int id = 0;
 
   @override
@@ -43,18 +54,14 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
           },
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset('${AppAssets.svgLocation}search.svg'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child:
-                SvgPicture.asset('${AppAssets.svgLocation}shopping_cart.svg'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset('${AppAssets.svgLocation}notification.svg'),
+          ...List.generate(
+            appBarActionList.length,
+            (index) {
+              return Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset(appBarActionList[index]),
+              );
+            },
           ),
         ],
       ),
@@ -62,10 +69,15 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            ///Home Screen Banner Carousel
             const HomeScreenBanner(),
             const HomeScreenDivider(),
+
+            ///Featured Card Collection List
             const HomeScreenFeaturedCollectionList(),
             const HomeScreenDivider(),
+
+            ///Featured Seller
             HomeScreenDescription(
               title: AppStrings.keyFeaturedSellers,
               onTap: () {
@@ -80,6 +92,8 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
               },
             ),
             const HomeScreenProfiles(),
+
+            ///Card Shop
             HomeScreenDescription(
               title: AppStrings.keyShop,
               onTap: () {
@@ -109,16 +123,6 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                 itemBuilder: (context, index) {
                   return ShopCard(
                     index: index,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const CardDetails();
-                          },
-                        ),
-                      );
-                    },
                   );
                 },
               ),
