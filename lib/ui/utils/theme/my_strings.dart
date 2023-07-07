@@ -26,6 +26,10 @@ class AppStrings {
   static const keySignUp = 'Sign Up';
   static const keyEnterYourAddress = 'Enter Your Current Address Below';
   static const keyEnterYourAddressContent = 'Enter Your Current Address Below';
+  static const keyAddressType = 'Address Type';
+  static const keyAddressTypeOne = 'Home';
+  static const keyAddressTypeTwo = 'Work';
+  static const keyAddressTypeThree = 'Other';
   static const keyCardPrice2 = '999.87KD';
   static const keyAddToCart = 'Add To Cart';
   static const keyPortfolio = 'Portfolio';
@@ -107,6 +111,10 @@ class AppStrings {
   static const keyEnterYourPersonalDetails = 'Enter Your Personal Details Here';
   static const keyEliteKd = '60 KD';
   static const keyUsername = 'Username';
+  static const keyAvenue = 'Avenue';
+  static const keyBuilding = 'Building';
+  static const keyFloor = 'Floor';
+  static const keyHouseNo = 'House No*';
   static const keyEnterReferral = 'Enter your Referral Code';
   static const keyApply = 'Apply';
   static const keyHaveReferral = 'I Have A Referral Code.';

@@ -22,23 +22,27 @@ class HomeScreenProfiles extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SizedBox(
-                    width: 56.w,
-                    height: 56.h,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage(
-                          '${AppAssets.imgLocation}profile_${index % 5}.png'),
+                  Flexible(
+                    child: SizedBox(
+                      width: 56.w,
+                      height: 56.h,
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage(
+                            '${AppAssets.imgLocation}profile_${index % 5}.png'),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: 56.w,
-                    child: Text(
-                      AppStrings.profiles[index % 5],
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: TextStyles.regular
-                          .copyWith(color: AppColors.greyText,fontSize: 12.sp),
+                  Flexible(
+                    child: SizedBox(
+                      width: 56.w,
+                      child: Text(
+                        AppStrings.profiles[index % 5],
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: TextStyles.regular
+                            .copyWith(color: AppColors.greyText,fontSize: 12.sp),
+                      ),
                     ),
                   ),
                 ],

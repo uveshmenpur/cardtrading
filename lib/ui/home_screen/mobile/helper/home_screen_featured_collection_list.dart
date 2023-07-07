@@ -14,7 +14,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 415.h,
+      height: 427.h,
       child: ListView.builder(
         itemCount: 10,
         scrollDirection: Axis.horizontal,
@@ -50,13 +50,15 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Image.asset(
-                    index == 1 ?'${AppAssets.imgLocation}card_1.png' :'${AppAssets.imgLocation}card_0.png',
-                    width: 178.w,
-                    height: 300.h,
-                    fit: BoxFit.fitWidth,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset(
+                      index == 1 ?'${AppAssets.imgLocation}card_1.png' :'${AppAssets.imgLocation}card_0.png',
+                      width: 178.w,
+                      height: 300.h,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
                 SizedBox(

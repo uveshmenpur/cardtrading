@@ -7,7 +7,6 @@ import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
-import 'package:cardtrading/ui/utils/widget/common_text.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,9 +21,9 @@ class GetOtpMobile extends StatefulWidget {
 }
 
 class _GetOtpMobileState extends State<GetOtpMobile> {
-  int _countDown = 8;
+  int _countDown = 59;
   late Timer timer;
-
+  final _formKey = GlobalKey<FormState>();
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -77,7 +76,15 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
         elevation: 0,
         backgroundColor: AppColors.background,
       ),
-      body: Column(
+      body: _bodyWidget(context),
+    );
+  }
+
+  ///Body Widget
+  Widget _bodyWidget(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
         children: [
           Expanded(
             child: Padding(
@@ -99,9 +106,9 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
                   Container(
                     padding: const EdgeInsets.all(4.0),
                     width: 0.8.sw,
-                    child: CommonText(
-                      text: AppStrings.keyWeHaveSentYouOtp,
-                      textStyles: TextStyles.regular.copyWith(
+                    child: Text(
+                      AppStrings.keyWeHaveSentYouOtp,
+                      style: TextStyles.regular.copyWith(
                         fontSize: 12.sp,
                         color: AppColors.checkoutTextColor,
                       ),
@@ -109,6 +116,7 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
+
                     ///Pin Code Text Fields
                     child: _pinCodeTextField(context),
                   ),
@@ -170,64 +178,76 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
   ///Pin code Text Fields
   Widget _pinCodeTextField(BuildContext context) {
     return PinCodeTextField(
-                    length: 6,
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    animationType: AnimationType.scale,
-                    hintCharacter: ' ',
-                    cursorColor: AppColors.primary,
-                    cursorHeight: 20.h,
-                    textStyle: TextStyles.light.copyWith(
-                      fontSize: 15.sp,
-                      color: AppColors.white,
-                      fontFamily: 'Sora',
-                    ),
-                    pinTheme: PinTheme(
-                      activeColor: AppColors.buttonBg,
-                      inactiveFillColor: AppColors.buttonBg,
-                      activeFillColor: AppColors.buttonBg,
-                      selectedColor: AppColors.buttonBg,
-                      selectedFillColor: AppColors.buttonBg,
-                      inactiveColor: AppColors.buttonBg,
-                      fieldHeight: 42.w,
-                      fieldWidth: 42.w,
-                    ),
-                    enableActiveFill: true,
-                    onCompleted: (v) {},
-                    onChanged: (value) {},
-                    beforeTextPaste: (text) {
-                      return true;
-                    },
-                    appContext: context,
-                  );
+      validator: (value) {
+        if (value?.length != 6) {
+          return 'Enter Valid OTP';
+        }
+        return null;
+      },
+      length: 6,
+      obscureText: false,
+      keyboardType: TextInputType.number,
+      animationType: AnimationType.scale,
+      hintCharacter: ' ',
+      cursorColor: AppColors.primary,
+      cursorHeight: 20.h,
+      textStyle: TextStyles.light.copyWith(
+        fontSize: 15.sp,
+        color: AppColors.white,
+        fontFamily: 'Sora',
+      ),
+      pinTheme: PinTheme(
+        activeColor: AppColors.buttonBg,
+        inactiveFillColor: AppColors.buttonBg,
+        activeFillColor: AppColors.buttonBg,
+        selectedColor: AppColors.buttonBg,
+        selectedFillColor: AppColors.buttonBg,
+        inactiveColor: AppColors.buttonBg,
+        fieldHeight: 42.w,
+        fieldWidth: 42.w,
+      ),
+      enableActiveFill: true,
+      onCompleted: (v) {},
+      onChanged: (value) {},
+      beforeTextPaste: (text) {
+        return true;
+      },
+      appContext: context,
+    );
   }
 
   ///Common Button
   Widget _commonButton(BuildContext context) {
     return CommonButton(
-            buttonPadding: const EdgeInsets.all(8.0),
-            prefixWidget: Text(
-              AppStrings.keyVerifyOtp,
-              style: TextStyles.semiBold.copyWith(
-                color: AppColors.selectedButtonText,
-                fontSize: 16.sp,
-              ),
+      buttonPadding: const EdgeInsets.all(8.0),
+      prefixWidget: Text(
+        AppStrings.keyVerifyOtp,
+        style: TextStyles.semiBold.copyWith(
+          color: AppColors.selectedButtonText,
+          fontSize: 16.sp,
+        ),
+      ),
+      buttonText: ' ',
+      suffixWidget: const Icon(
+        Icons.arrow_forward_outlined,
+        color: AppColors.selectedButtonText,
+      ),
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const CompleteProfile();
+              },
             ),
-            buttonText: ' ',
-            suffixWidget: const Icon(
-              Icons.arrow_forward_outlined,
-              color: AppColors.selectedButtonText,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const CompleteProfile();
-                  },
-                ),
-              );
-            },
           );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Enter Valid OTP')),
+          );
+        }
+      },
+    );
   }
 }

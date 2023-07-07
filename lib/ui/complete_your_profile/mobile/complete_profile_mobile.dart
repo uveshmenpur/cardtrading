@@ -117,6 +117,7 @@ class _CompleteProfileMobileState extends State<CompleteProfileMobile> {
                   TextFormField(
                     cursorColor: AppColors.primary,
                     decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(18.0),
                       hintText: AppStrings.keyUsername,
                       fillColor: AppColors.buttonBg,
                       filled: true,

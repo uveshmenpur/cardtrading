@@ -5,7 +5,6 @@ import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
-import 'package:cardtrading/ui/utils/widget/common_text.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,9 +64,9 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
             SizedBox(
               height: 10.h,
             ),
-            CommonText(
-              text: AppStrings.keyTermsAndConditionDescription,
-              textStyles: TextStyles.regular.copyWith(
+            Text(
+              AppStrings.keyTermsAndConditionDescription,
+              style: TextStyles.regular.copyWith(
                 color: AppColors.greyText,
                 fontSize: 12.sp,
               ),

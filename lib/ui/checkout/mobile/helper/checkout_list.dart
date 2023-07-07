@@ -23,20 +23,20 @@ class _CheckoutListState extends State<CheckoutList> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(39.5, 20.0, 20.0, 20.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 95,
-            height: 128,
+            width: 95.w,
+            height: 128.h,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0.0, 0.0, 43.0, 43.0),
               child: Image.asset(
                 widget.url,
                 alignment: Alignment.topLeft,
-                fit: BoxFit.fill,
-                width: 50,
-                height: 85,
+                fit: BoxFit.contain,
+                width: 50.w,
+                height: 85.h,
               ),
             ),
           ),
@@ -134,6 +134,13 @@ class _CheckoutListState extends State<CheckoutList> {
             ],
           ),
           InkWell(
+            onTap: () {
+              setState(
+                () {
+                  itemCount = 0;
+                },
+              );
+            },
             child: SvgPicture.asset(
               '${AppAssets.svgLocation}delete_bin.svg',
               width: 20.w,

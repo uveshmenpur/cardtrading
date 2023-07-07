@@ -40,14 +40,16 @@ class _ShopCardState extends State<ShopCard> {
         color: AppColors.cardBackgroundColor,
         child: Column(
           children: [
+            SizedBox(
+              height: 5.h,
+            ),
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   color: AppColors.golden,
                   child: Text(
                     AppStrings.keyCardExclusive,
@@ -74,11 +76,19 @@ class _ShopCardState extends State<ShopCard> {
                 ),
               ],
             ),
-            Image.asset(
-              '${AppAssets.imgLocation}card_${widget.index % 4}.png',
-              width: 100.w,
-              height: 150.h,
-              fit: BoxFit.fill,
+            SizedBox(
+              height: 8.h,
+            ),
+            Expanded(
+              child: Image.asset(
+                '${AppAssets.imgLocation}card_${widget.index % 4}.png',
+                width: 100.w,
+                height: 150.h,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(
+              height: 8.h,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -95,6 +105,9 @@ class _ShopCardState extends State<ShopCard> {
               AppStrings.keyCardPrice,
               textAlign: TextAlign.center,
               style: TextStyles.semiBold.copyWith(color: AppColors.primary),
+            ),
+            SizedBox(
+              height: 8.h,
             ),
           ],
         ),

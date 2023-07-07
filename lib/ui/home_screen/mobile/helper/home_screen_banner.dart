@@ -23,80 +23,83 @@ class HomeScreenBanner extends StatelessWidget {
           ...List.generate(
             3,
             (index) {
-              return Stack(
-                children: [
-                  SizedBox(
-                    width: 0.9.sw,
-                    height: 0.3.sh,
-                    child: Image.network(
-                      'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    child: Container(
-                      height: 40.h,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      color: index == 1 ? AppColors.white : AppColors.primary,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                    text: AppStrings.keyBuy,
-                                    style: TextStyles.bold.copyWith(
-                                        fontFamily:
-                                            TextStyles.secondaryFontFamily,
-                                        fontSize: 12.sp,
-                                        color: AppColors.background),
-                                    children: [
-                                      TextSpan(
-                                        text: AppStrings.keyWith,
-                                        style: TextStyles.regular.copyWith(
-                                            fontFamily:
-                                                TextStyles.secondaryFontFamily,
-                                            fontSize: 12.sp,
-                                            color: AppColors.background),
-                                      ),
-                                      TextSpan(
-                                        text: AppStrings.keyConfidence,
-                                        style: TextStyles.bold.copyWith(
-                                            fontFamily:
-                                                TextStyles.secondaryFontFamily,
-                                            fontSize: 12.sp,
-                                            color: AppColors.background),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 5.h),
-                                Text(
-                                  AppStrings.keyBannerSubtitle,
-                                  style: TextStyles.light.copyWith(
-                                      fontFamily:
-                                          TextStyles.secondaryFontFamily,
-                                      fontSize: 8.sp,
-                                      color: AppColors.background),
-                                )
-                              ],
-                            ),
-                          ),
-                          SvgPicture.asset(
-                              '${AppAssets.svgLocation}arrow_up.svg'),
-                        ],
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 0.9.sw,
+                      height: 0.4.sh,
+                      child: Image.network(
+                        'http://cloud1.kodyinfotech.com:7000/online-test-management/public/uploads/media/20f89daadc90b1c4df3418dc1fa53e99.png',
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      child: Container(
+                        height: 51.h,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                        color: index == 1 ? AppColors.white : AppColors.primary,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: AppStrings.keyBuy,
+                                      style: TextStyles.bold.copyWith(
+                                          fontFamily:
+                                              TextStyles.secondaryFontFamily,
+                                          fontSize: 12.sp,
+                                          color: AppColors.background),
+                                      children: [
+                                        TextSpan(
+                                          text: AppStrings.keyWith,
+                                          style: TextStyles.regular.copyWith(
+                                              fontFamily:
+                                                  TextStyles.secondaryFontFamily,
+                                              fontSize: 12.sp,
+                                              color: AppColors.background),
+                                        ),
+                                        TextSpan(
+                                          text: AppStrings.keyConfidence,
+                                          style: TextStyles.bold.copyWith(
+                                              fontFamily:
+                                                  TextStyles.secondaryFontFamily,
+                                              fontSize: 12.sp,
+                                              color: AppColors.background),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 3.h),
+                                  Text(
+                                    AppStrings.keyBannerSubtitle,
+                                    style: TextStyles.light.copyWith(
+                                        fontFamily:
+                                            TextStyles.secondaryFontFamily,
+                                        fontSize: 8.sp,
+                                        color: AppColors.background),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SvgPicture.asset(
+                                '${AppAssets.svgLocation}arrow_up.svg'),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
