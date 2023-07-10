@@ -1,9 +1,8 @@
-import 'package:cardtrading/ui/choose_language/mobile/helper/choose_language_button.dart';
-import 'package:cardtrading/ui/choose_language/mobile/helper/floating_button.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/my_strings.dart';
-import 'package:cardtrading/ui/utils/widget/common_text.dart';
-import 'package:cardtrading/ui/utils/widget/common_title.dart';
+import 'package:cardtrading/ui/onboarding/onboarding.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,77 +14,119 @@ class ChooseLanguageMobile extends StatefulWidget {
 }
 
 class _ChooseLanguageMobileState extends State<ChooseLanguageMobile> {
-  ///boolean values to check which language is selected
-  bool englishSelected = false;
-  bool arabicSelected = false;
+  List<String> languages = ['English', 'عربي'];
+  String selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.background,
-      body: Padding(
-        padding: EdgeInsets.only(
-            left: 16.0.r, bottom: 16.0.r, right: 16.0.r, top: 50.0.r),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(8.0.r, 12.0.r, 0.0.r, 0.0.r),
-                child: const CommonTitle(
-                  text: MyStrings.chooseLangTitle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8.0.r, 6.0.r, 0.0.r, 0.0.r),
-                child: CommonText(
-                  text: MyStrings.chooseLangContent,
-                  align: TextAlign.start,
-                  fontSize: 16.sp,
-                ),
-              ),
-
-              const SizedBox(
-                height: 36,
-              ),
-
-              ///English Language Button
-              ChooseLanguageButton(
-                text: 'English',
-                isSelected: englishSelected,
-                onPressed: () {
-                  setState(
-                    () {
-                      englishSelected = true;
-                      arabicSelected = false;
-                    },
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-
-              ///Arabic Language Button
-              ChooseLanguageButton(
-                text: MyStrings.arabic,
-                isSelected: arabicSelected,
-                onPressed: () {
-                  setState(
-                    () {
-                      englishSelected = false;
-                      arabicSelected = true;
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      floatingActionButton: const ChooseLanguageFAB(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      backgroundColor: AppColors.background,
+      body: _bodyWidget(context),
+    );
+  }
+
+  ///Body Widget
+  Widget _bodyWidget(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 30),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppStrings.keyChooseLangTitle,
+                  style: TextStyles.medium
+                      .copyWith(fontSize: 18.sp, color: AppColors.golden),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  AppStrings.keyChooseLangContent,
+                  style: TextStyles.regular
+                      .copyWith(fontSize: 14.sp, color: AppColors.greyText),
+                ),
+
+                const SizedBox(
+                  height: 40,
+                ),
+
+                /// Buttons to Select Languages
+                ..._languageButtons(),
+              ],
+            ),
+          ),
+
+          ///Common Button
+          _keepGoingButton(context),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _languageButtons() {
+    return List.generate(
+      languages.length,
+      (index) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 25.h),
+          child: CommonButton(
+            align: TextAlign.left,
+            buttonHeight: 46.h,
+            onPressed: () {
+              setState(
+                () {
+                  selectedLanguage = languages[index];
+                },
+              );
+            },
+            buttonPadding: EdgeInsets.symmetric(horizontal: 15.w),
+            buttonBackgroundColor: selectedLanguage == languages[index]
+                ? AppColors.primary
+                : AppColors.buttonBg,
+            buttonText: languages[index],
+            suffixWidget: selectedLanguage == languages[index]
+                ? const Icon(
+                    Icons.check,
+                    color: Colors.black,
+                  )
+                : null,
+            buttonTextStyle: TextStyles.light.copyWith(
+              color: selectedLanguage == languages[index]
+                  ? AppColors.selectedButtonText
+                  : AppColors.buttonText,
+              fontSize: 14.sp,
+              fontFamily: 'Sora',
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _keepGoingButton(BuildContext context) {
+    ///Common Button Widget
+    return CommonButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return const OnBoardingOne();
+            },
+          ),
+        );
+      },
+      buttonText: AppStrings.keyKeepGoing,
+      buttonTextStyle: TextStyles.semiBold.copyWith(
+        fontSize: 16.sp,
+        color: AppColors.selectedButtonText,
+      ),
     );
   }
 }

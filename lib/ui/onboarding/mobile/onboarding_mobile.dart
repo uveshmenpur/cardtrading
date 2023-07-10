@@ -1,7 +1,8 @@
 import 'package:cardtrading/ui/authentication/sign_in.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/my_strings.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
+import 'package:cardtrading/ui/utils/theme/assets.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,180 +17,216 @@ class OnBoardingMobile extends StatefulWidget {
 }
 
 class _OnBoardingMobileState extends State<OnBoardingMobile> {
-  int initialPage = 1;
+  PageController pageController = PageController(initialPage: 0);
+
+  int selectedPage = 0;
+
+  List<String> onBoardingTitle = [
+    AppStrings.keyOnBoardingTitle1,
+    AppStrings.keyOnBoardingTitle2,
+    AppStrings.keyOnBoardingTitle3
+  ];
+  List<String> onBoardingContent = [
+    AppStrings.keyOnBoardingContent1,
+    AppStrings.keyOnBoardingContent2,
+    AppStrings.keyOnBoardingContent3
+  ];
+
+  animateToNextPage() {
+    pageController.animateToPage(
+      selectedPage,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.background,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 0.9.sw,
-                height: 25.h,
-              ),
-              Row(
+      backgroundColor: AppColors.background,
+      body: _bodyWidget(context),
+    );
+  }
+
+  ///Body Widget
+  Widget _bodyWidget(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 25.h,
+                ),
+
+                ///Skip Button
+                _skipButton(),
+
+                ///space left out for animation will implement when I get json file from designer
+                SizedBox(
+                  height: 0.7.sh,
+                  child: PageView(
+                    onPageChanged: (pageIndex) {
+                      setState(
+                        () {
+                          selectedPage = pageIndex;
+                        },
+                      );
+                    },
+                    controller: pageController,
+                    children: List.generate(onBoardingTitle.length, (index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: Container(),),
+                          Text(
+                            onBoardingTitle[index],
+                            maxLines: 2,
+                            style: TextStyles.semiBold.copyWith(
+                              fontSize: 24.sp,
+                              color: AppColors.golden,
+                            ),
+                            softWrap: true,
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Text(
+                            onBoardingContent[index],
+                            maxLines: 2,
+                            style: TextStyles.regular.copyWith(
+                              color: AppColors.greyText,
+                            ),
+                            softWrap: true,
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                ///Page Indicator Boxes
+                _pageIndicator(),
+              ],
+            ),
+          ),
+
+          ///Display Common Button on first 2 pages and Slider on 3rd page
+          selectedPage == 2 ? _sliderButton(context) : _commonButton(),
+        ],
+      ),
+    );
+  }
+
+  Row _skipButton() {
+    return Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextButton(
-                    child: initialPage != 3
-                        ? Text('Skip',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: MyColors.greyText,
-                          fontSize: 12.sp,
-                        ))
-                        : const Text(''),
+                    child: selectedPage != 2
+                        ? Text(
+                            AppStrings.keySkip,
+                            textAlign: TextAlign.start,
+                            style: TextStyles.light.copyWith(
+                              color: AppColors.checkoutTextColor,
+                            ),
+                          )
+                        : const SizedBox(),
                     onPressed: () {
                       setState(() {
-                        initialPage = 3;
+                        selectedPage = onBoardingTitle.length - 1;
+                        animateToNextPage();
                       });
                     },
                   ),
                 ],
-              ),
+              );
+  }
 
-              ///space left out for animation will implement when I get json file from designer
-              SizedBox(
-                width: 0.9.sw,
-                height: 0.6.sh,
-              ),
-              Container(
-                width: 0.7.sw,
-                padding: REdgeInsets.all(8.0.r),
-                child: Text(
-                  initialPage == 1
-                      ? MyStrings.onBoardingOneTitle
-                      : initialPage == 2
-                          ? MyStrings.onBoardingTwoTitle
-                          : MyStrings.onBoardingThreeTitle,
-                  textAlign: TextAlign.start,
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontFamily: TextStyles.fontFamily,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.golden),
-                ),
-              ),
-              Container(
-                width: 0.8.sw,
-                padding: REdgeInsets.all(8.0.r),
-                child: Text(
-                  initialPage == 1
-                      ? MyStrings.onBoardingOneContent
-                      : initialPage == 2
-                          ? MyStrings.onBoardingTwoContent
-                          : MyStrings.onBoardingThreeContent,
-                  textAlign: TextAlign.start,
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontFamily: TextStyles.fontFamily,
-                      fontSize: 12.sp,
-                      color: MyColors.greyText),
-                ),
-              ),
-              SizedBox(
-                width: 0.9.sw,
-                height: 10.h,
-              ),
-              Padding(
-                padding: REdgeInsets.all(8.0.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: REdgeInsets.only(right: 4.0.r),
-                      child: Container(
-                        width: 5.w,
-                        height: 5.w,
-                        color: initialPage == 1 ? null : MyColors.indicator,
-                      ),
-                    ),
-                    Padding(
-                      padding: REdgeInsets.only(right: 4.0.r),
-                      child: Container(
-                        width: 5.w,
-                        height: 5.w,
-                        color: initialPage == 2 ? null : MyColors.indicator,
-                      ),
-                    ),
-                    Padding(
-                      padding: REdgeInsets.only(right: 4.0.r),
-                      child: Container(
-                        width: 5.w,
-                        height: 5.w,
-                        color: initialPage == 3 ? null : MyColors.indicator,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+  ///Common Button
+  Widget _commonButton() {
+    return CommonButton(
+      buttonHeight: 50.h,
+      buttonText: AppStrings.keyNext,
+      buttonTextStyle: TextStyles.semiBold.copyWith(
+        fontSize: 16.sp,
+        color: AppColors.selectedButtonText,
+      ),
+      onPressed: () {
+        setState(
+          () {
+            selectedPage++;
+            animateToNextPage();
+          },
+        );
+      },
+    );
+  }
+
+  ///Slider Button
+  Widget _sliderButton(BuildContext context) {
+    return SliderButton(
+      backgroundColor: AppColors.background,
+      width: double.infinity,
+      action: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return const SignIn();
+            },
           ),
+        );
+      },
+      alignLabel: Alignment.center,
+      highlightedColor: AppColors.primary,
+      baseColor: AppColors.primary,
+      label: Text(
+        AppStrings.keySwipeToGetStarted,
+        textAlign: TextAlign.center,
+        style: TextStyles.semiBold.copyWith(
+          color: AppColors.primary,
+          fontSize: 16.sp,
         ),
       ),
-      floatingActionButton:
+      child: Container(
+        color: Colors.transparent,
+        child: SvgPicture.asset(
+          '${AppAssets.svgLocation}swipeicon.svg',
+          matchTextDirection: true,
+        ),
+      ),
+    );
+  }
 
-          ///If we are oon third on-boarding screen than display Slider Button
-          initialPage == 3
-              ? SliderButton(
-                  backgroundColor: MyColors.background,
-                  action: () {
-                    initialPage = 1;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return const SignIn();
-                        },
-                      ),
-                    );
-                  },
-                  radius: 10,
-                  highlightedColor: MyColors.primary,
-                  baseColor: MyColors.primary,
-                  label: Text(
-                    'Swipe to get started',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Montserrat',
-                        fontSize: 16.sp),
-                  ),
-                  child: Container(
-                    color: MyColors.background,
-                    child: SvgPicture.asset(
-                      'assets/svg/swipeicon.svg',
-                      matchTextDirection: true,
-                    ),
-                  ),
-                )
-
-              ///If we are on 1st or 2nd on-boarding screen than display Next Button
-              : SizedBox(
-                  height: 42.h,
-                  width: 0.9.sw,
-                  child: Center(
-                    child: CommonButton(
-                      text: 'Next',
-                      onPressed: () {
-                        setState(() {
-                          initialPage == 1 ? initialPage = 2 : initialPage = 3;
-                        },);
-                      },
-                    ),
-                  ),
-                ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+  ///Page Indicators
+  Widget _pageIndicator() {
+    return Row(
+      children: List.generate(
+        onBoardingTitle.length,
+        (index) {
+          return Container(
+            margin: EdgeInsets.only(right: 5.w),
+            height: 6.h,
+            width: selectedPage == index ? 20.w : 6.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: selectedPage == index
+                    ? AppColors.primary
+                    : Colors.transparent,
+              ),
+              color: selectedPage == index
+                  ? Colors.transparent
+                  : AppColors.indicatorColor,
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  const  SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {

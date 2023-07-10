@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_104085" data-name="Group 104085" transform="translate(-173 -1596)">
+    <g id="Group_104084" data-name="Group 104084" transform="translate(74)">
+      <rect id="Rectangle_34794" data-name="Rectangle 34794" width="40" height="40" rx="20" transform="translate(99 1596)" fill="#1a1a1a"/>
+    </g>
+    <path id="space-ship-fill" d="M2.88,16.606A32.771,32.771,0,0,1,10.3,2.118q.147-.167.372-.412h0A.73.73,0,0,1,11.7,1.663q.023.021.043.043.228.248.377.416a32.771,32.771,0,0,1,7.412,14.483,40.181,40.181,0,0,1-6.011.8l-1.907,3.814a.457.457,0,0,1-.817,0L8.891,17.4A40.182,40.182,0,0,1,2.88,16.606Zm8.326-2.788a2.739,2.739,0,1,0-2.739-2.739A2.739,2.739,0,0,0,11.206,13.818Z" transform="translate(181.794 1604.53)" fill="#76dcc2"/>
+  </g>
+</svg>

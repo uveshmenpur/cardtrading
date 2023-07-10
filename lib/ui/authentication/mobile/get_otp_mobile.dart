@@ -1,11 +1,16 @@
-import 'package:cardtrading/ui/authentication/mobile/helper/get_otp_button.dart';
-import 'package:cardtrading/ui/home_screen/home_screen.dart';
-import 'package:cardtrading/ui/utils/colors.dart';
-import 'package:cardtrading/ui/utils/text_style.dart';
-import 'package:cardtrading/ui/utils/widget/common_text.dart';
+import 'dart:async';
+
+import 'package:cardtrading/ui/complete_your_profile/complete_profile.dart';
+import 'package:cardtrading/ui/onboarding/onboarding.dart';
+import 'package:cardtrading/ui/utils/theme/assets.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/my_strings.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class GetOtpMobile extends StatefulWidget {
@@ -16,121 +21,233 @@ class GetOtpMobile extends StatefulWidget {
 }
 
 class _GetOtpMobileState extends State<GetOtpMobile> {
+  int _countDown = 59;
+  late Timer timer;
+  final _formKey = GlobalKey<FormState>();
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countDown > 0) {
+        setState(() {
+          _countDown--;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.background,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Verification'),
-        automaticallyImplyLeading: true,
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: MyColors.background,
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.0.h),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4.0),
-                width: 0.5.sw,
-                child: const CommonTitle(
-                  text: 'Enter Your 6 Digit OTP Here!',
-                  fontSize: 22,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(4.0),
-                width: 0.8.sw,
-                child: const CommonText(
-                  text:
-                      'We\'ve Sent You A Verification Code On Your Registered Phone Number',
-                  fontSize: 12,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
-                child: PinCodeTextField(
-                  length: 6,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  animationType: AnimationType.scale,
-                  hintCharacter: ' ',
-                  hintStyle: TextStyles.regular
-                      .copyWith(color: MyColors.greyText, fontSize: 26.sp),
-                  pinTheme: PinTheme(
-                    activeColor: MyColors.buttonBg,
-                    inactiveFillColor: MyColors.buttonBg,
-                    activeFillColor: MyColors.buttonBg,
-                    selectedColor: MyColors.buttonBg,
-                    selectedFillColor: MyColors.buttonBg,
-                    inactiveColor: MyColors.buttonBg,
-                    fieldHeight: 42.w,
-                    fieldWidth: 42.w,
-                  ),
-                  enableActiveFill: true,
-                  onCompleted: (v) {},
-                  onChanged: (value) {
-                    setState(
-                      () {},
-                    );
-                  },
-                  beforeTextPaste: (text) {
-                    return true;
-                  },
-                  appContext: context,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: 'Did Not Receive A Code?',
-                        style: TextStyles.regular,
-                        children: const [
-                          TextSpan(
-                            text: ' RESEND',
-                            style: TextStyle(
-                                fontSize: 14, color: MyColors.primary),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Text(
-                      '00:58',
-                      textAlign: TextAlign.end,
-                    ),
-                  ],
-                ),
-              )
-            ],
+        title: Text(
+          AppStrings.keyVerification,
+          style: TextStyles.medium.copyWith(
+            fontSize: 16.sp,
+            color: AppColors.white,
           ),
         ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-        child: GetOtpButton(
-          text: 'Verify Otp',
+        leading: IconButton(
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const HomeScreen();
+                  return const OnBoardingOne();
                 },
               ),
             );
           },
+          icon: SvgPicture.asset(
+            '${AppAssets.svgLocation}arrow_right_line.svg',
+            width: 24.w,
+            height: 24.h,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: AppColors.background,
+      ),
+      body: _bodyWidget(context),
+    );
+  }
+
+  ///Body Widget
+  Widget _bodyWidget(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(4.0),
+                    width: 0.5.sw,
+                    child: CommonTitle(
+                      text: AppStrings.keyEnterOtpHere,
+                      tStyle: TextStyles.medium.copyWith(
+                        fontSize: 18.sp,
+                        color: AppColors.golden,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(4.0),
+                    width: 0.8.sw,
+                    child: Text(
+                      AppStrings.keyWeHaveSentYouOtp,
+                      style: TextStyles.regular.copyWith(
+                        fontSize: 12.sp,
+                        color: AppColors.checkoutTextColor,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
+
+                    ///Pin Code Text Fields
+                    child: _pinCodeTextField(context),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppStrings.keyCodeNotReceived,
+                          style: TextStyles.light.copyWith(
+                            fontFamily: 'Sora',
+                            fontSize: 12.sp,
+                            color: AppColors.checkoutTextColor,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _countDown = 8;
+                              startTimer();
+                            });
+                          },
+                          child: Visibility(
+                            visible: _countDown == 0,
+                            child: Text(
+                              AppStrings.keyResend,
+                              style: TextStyles.semiBold.copyWith(
+                                  fontSize: 12.sp,
+                                  color: AppColors.primary,
+                                  fontFamily: 'Sora'),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            _countDown.toString().length >= 2
+                                ? _countDown.toString().padLeft(3, '00:')
+                                : _countDown.toString().padLeft(2, '00:0'),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: _commonButton(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ///Pin code Text Fields
+  Widget _pinCodeTextField(BuildContext context) {
+    return PinCodeTextField(
+      validator: (value) {
+        if (value?.length != 6) {
+          return 'Enter Valid OTP';
+        }
+        return null;
+      },
+      length: 6,
+      obscureText: false,
+      keyboardType: TextInputType.number,
+      animationType: AnimationType.scale,
+      hintCharacter: ' ',
+      cursorColor: AppColors.primary,
+      cursorHeight: 20.h,
+      textStyle: TextStyles.light.copyWith(
+        fontSize: 15.sp,
+        color: AppColors.white,
+        fontFamily: 'Sora',
+      ),
+      pinTheme: PinTheme(
+        activeColor: AppColors.buttonBg,
+        inactiveFillColor: AppColors.buttonBg,
+        activeFillColor: AppColors.buttonBg,
+        selectedColor: AppColors.buttonBg,
+        selectedFillColor: AppColors.buttonBg,
+        inactiveColor: AppColors.buttonBg,
+        fieldHeight: 42.w,
+        fieldWidth: 42.w,
+      ),
+      enableActiveFill: true,
+      onCompleted: (v) {},
+      onChanged: (value) {},
+      beforeTextPaste: (text) {
+        return true;
+      },
+      appContext: context,
+    );
+  }
+
+  ///Common Button
+  Widget _commonButton(BuildContext context) {
+    return CommonButton(
+      buttonPadding: const EdgeInsets.all(8.0),
+      prefixWidget: Text(
+        AppStrings.keyVerifyOtp,
+        style: TextStyles.semiBold.copyWith(
+          color: AppColors.selectedButtonText,
+          fontSize: 16.sp,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      buttonText: ' ',
+      suffixWidget: const Icon(
+        Icons.arrow_forward_outlined,
+        color: AppColors.selectedButtonText,
+      ),
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const CompleteProfile();
+              },
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Enter Valid OTP')),
+          );
+        }
+      },
     );
   }
 }

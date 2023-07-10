@@ -1,52 +1,73 @@
-import 'package:cardtrading/ui/utils/colors.dart';
+import 'package:cardtrading/ui/utils/theme/colors.dart';
+import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CommonButton extends StatefulWidget {
+class CommonButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final Widget? prefixWidget;
+  final Widget? suffixWidget;
+  final String buttonText;
+  final TextStyle? buttonTextStyle;
+  final Color? buttonTextColor;
+  final double? buttonFontSize;
+  final Color? buttonBackgroundColor;
+  final Color? buttonBorderColor;
+  final BorderRadius? buttonBorderRadius;
+  final EdgeInsetsGeometry? buttonPadding;
+  final TextAlign? align;
+  final double? buttonHeight;
+  final MainAxisSize? mainAxisSize;
+
   const CommonButton({
     super.key,
-    required this.text,
     this.onPressed,
+    this.prefixWidget,
+    this.suffixWidget,
+    required this.buttonText,
+    this.buttonTextStyle,
+    this.buttonTextColor,
+    this.buttonFontSize,
+    this.buttonBackgroundColor,
+    this.buttonBorderColor,
+    this.buttonBorderRadius,
+    this.buttonPadding,
+    this.buttonHeight,
+    this.align, this.mainAxisSize,
   });
 
-  //define whether
-  final String text;
-  final VoidCallback? onPressed;
-
-  @override
-  State<CommonButton> createState() => _CommonButtonState();
-}
-
-class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: widget.onPressed,
-      style: TextButton.styleFrom(
-        backgroundColor: MyColors.primary,
-        padding: REdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 15,
-        ),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(
-            color: MyColors.primary,
-            width: 2,
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: buttonHeight ?? 50.h,
+        padding: buttonPadding,
+        decoration: BoxDecoration(
+          borderRadius: buttonBorderRadius,
+          border: Border.all(
+            color: buttonBorderColor ?? Colors.transparent,
           ),
-          borderRadius: BorderRadius.circular(4),
+          color: buttonBackgroundColor ?? AppColors.primary,
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            widget.text,
-            style: const TextStyle(
-              color: MyColors.selectedButtonText,
-              fontSize: 17,
+        child: Row(
+          mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+          children: [
+            prefixWidget ?? const SizedBox(),
+            Expanded(
+              child: Text(
+                buttonText,
+                textAlign: align ?? TextAlign.center,
+                style: buttonTextStyle ??
+                    TextStyles.semiBold.copyWith(
+                      fontSize: buttonFontSize ?? 16.sp,
+                      color: AppColors.selectedButtonText,
+                    ),
+              ),
             ),
-          )
-        ],
+            suffixWidget ?? const SizedBox()
+          ],
+        ),
       ),
     );
   }

@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.2 <4.0.0'
+  sdk: '>=3.0.1 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -42,6 +42,9 @@ dependencies:
   responsive_builder:
   banner_carousel:
   pin_code_fields: ^7.4.0
+  dropdown_button2: ^2.1.4
+  email_validator: '^2.1.16'
+  flutter_riverpod:
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svg/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -83,12 +87,19 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf
-        - asset: assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
-        - asset: assets/fonts/Montserrat/static/Montserrat-Medium.ttf
-          style: normal
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora/Sora-Bold.ttf
+        - asset: assets/fonts/Sora/Sora-Light.ttf
+        - asset: assets/fonts/Sora/Sora-Medium.ttf
+        - asset: assets/fonts/Sora/Sora-Regular.ttf
 
   #   - family: Trajan Pro
   #     fonts:
