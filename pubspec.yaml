@@ -43,6 +43,8 @@ dependencies:
   banner_carousel:
   pin_code_fields: ^7.4.0
   dropdown_button2: ^2.1.4
+  email_validator: '^2.1.16'
+  flutter_riverpod:
 
 dev_dependencies:
   flutter_test:

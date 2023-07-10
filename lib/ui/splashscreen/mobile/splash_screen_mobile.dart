@@ -11,6 +11,7 @@ class SplashScreenMobile extends StatefulWidget {
 
   @override
   State<SplashScreenMobile> createState() => _SplashScreenMobileState();
+
 }
 
 class _SplashScreenMobileState extends State<SplashScreenMobile> {
