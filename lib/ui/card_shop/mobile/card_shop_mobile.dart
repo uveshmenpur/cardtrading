@@ -1,3 +1,5 @@
+import 'package:cardtrading/framework/controllers/card_shop/card_shop_controller.dart';
+import 'package:cardtrading/framework/controllers/home_screen/home_screen_controller.dart';
 import 'package:cardtrading/ui/authentication/get_otp.dart';
 import 'package:cardtrading/ui/card_shop/card_shop.dart';
 import 'package:cardtrading/ui/home_screen/home_screen.dart';
@@ -8,20 +10,19 @@ import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/shop_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CardShopMobile extends StatefulWidget {
+class CardShopMobile extends ConsumerStatefulWidget {
   const CardShopMobile({super.key});
 
   @override
-  State<CardShopMobile> createState() => _CardShopMobileState();
+  ConsumerState<CardShopMobile> createState() => _CardShopMobileState();
 }
 
-class _CardShopMobileState extends State<CardShopMobile> {
+class _CardShopMobileState extends ConsumerState<CardShopMobile> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
-  int pageIndex = 0;
-  int id = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _CardShopMobileState extends State<CardShopMobile> {
         child: Column(
           children: [
             _tabBar(),
-            pageIndex == 0
+            ref.watch(cardShopController).pageIndex == 0
                 ? Container(
                     height: 30.h,
                     margin: const EdgeInsets.all(20.0),
@@ -93,7 +94,7 @@ class _CardShopMobileState extends State<CardShopMobile> {
                     ),
                   )
                 : Container(),
-            pageIndex == 0
+            ref.watch(cardShopController).pageIndex == 0
                 ? Container(
                     width: 0.9.sw,
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -118,95 +119,51 @@ class _CardShopMobileState extends State<CardShopMobile> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Container(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  decoration: BoxDecoration(
-                    border: BorderDirectional(
-                      top: BorderSide(
-                        color: id == 0 ? AppColors.primary : Colors.transparent,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  child: SvgPicture.asset(id != 0
-                      ? '${AppAssets.svgLocation}home.svg'
-                      : '${AppAssets.svgLocation}home_primary.svg'),
+      bottomNavigationBar: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final homeScreenWatch = ref.watch(homeScreenController);
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: BottomNavigationBar(
+              items: [
+                ...List.generate(
+                  4,
+                  (index) {
+                    return BottomNavigationBarItem(
+                        icon: Container(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          decoration: BoxDecoration(
+                            border: BorderDirectional(
+                              top: BorderSide(
+                                color: homeScreenWatch.id == index
+                                    ? AppColors.primary
+                                    : Colors.transparent,
+                                width: 2.0,
+                              ),
+                            ),
+                          ),
+                          child: SvgPicture.asset(homeScreenWatch
+                              .bottomNavigationBarSvgPath[index]),
+                        ),
+                        label: AppStrings.keyHome,
+                        backgroundColor: AppColors.background);
+                  },
                 ),
-                label: AppStrings.keyHome,
-                backgroundColor: AppColors.background),
-            BottomNavigationBarItem(
-                icon: Container(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  decoration: BoxDecoration(
-                    border: BorderDirectional(
-                      top: BorderSide(
-                        color: id == 1 ? AppColors.primary : Colors.transparent,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  child: SvgPicture.asset(id == 1
-                      ? '${AppAssets.svgLocation}portfolio_primary.svg'
-                      : '${AppAssets.svgLocation}portfolio.svg'),
-                ),
-                label: AppStrings.keyPortfolio,
-                backgroundColor: AppColors.background),
-            BottomNavigationBarItem(
-                icon: Container(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  decoration: BoxDecoration(
-                    border: BorderDirectional(
-                      top: BorderSide(
-                        color: id == 2 ? AppColors.primary : Colors.transparent,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  child: SvgPicture.asset(id == 2
-                      ? '${AppAssets.svgLocation}store_primary.svg'
-                      : '${AppAssets.svgLocation}store.svg'),
-                ),
-                label: AppStrings.keyStore,
-                backgroundColor: AppColors.background),
-            BottomNavigationBarItem(
-                icon: Container(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  decoration: BoxDecoration(
-                    border: BorderDirectional(
-                      top: BorderSide(
-                        color: id == 3 ? AppColors.primary : Colors.transparent,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                  child: SvgPicture.asset(id == 3
-                      ? '${AppAssets.svgLocation}profile_primary.svg'
-                      : '${AppAssets.svgLocation}profile.svg'),
-                ),
-                label: AppStrings.keyProfile,
-                backgroundColor: AppColors.background),
-          ],
-          selectedFontSize: 10.sp,
-          unselectedFontSize: 10.sp,
-          backgroundColor: AppColors.background,
-          currentIndex: id,
-          type: BottomNavigationBarType.shifting,
-          showUnselectedLabels: true,
-          selectedLabelStyle: TextStyles.regular
-              .copyWith(color: AppColors.primary, fontSize: 12.sp),
-          selectedItemColor: AppColors.primary,
-          unselectedLabelStyle: TextStyles.regular
-              .copyWith(color: AppColors.white, fontSize: 12.sp),
-          onTap: (index) {
-            setState(
-              () {
-                id = index;
-                if (id == 1 || id == 3) {
+              ],
+              selectedFontSize: 10.sp,
+              unselectedFontSize: 10.sp,
+              backgroundColor: AppColors.background,
+              currentIndex: homeScreenWatch.id,
+              type: BottomNavigationBarType.shifting,
+              showUnselectedLabels: true,
+              selectedLabelStyle: TextStyles.regular
+                  .copyWith(color: AppColors.primary, fontSize: 12.sp),
+              selectedItemColor: AppColors.primary,
+              unselectedLabelStyle: TextStyles.regular
+                  .copyWith(color: AppColors.white, fontSize: 12.sp),
+              onTap: (index) {
+                homeScreenWatch.setId(newId: index);
+                if (homeScreenWatch.id == 1 || homeScreenWatch.id == 3) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -216,7 +173,7 @@ class _CardShopMobileState extends State<CardShopMobile> {
                     ),
                   );
                 }
-                id == 2
+                homeScreenWatch.id == 2
                     ? Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -234,9 +191,9 @@ class _CardShopMobileState extends State<CardShopMobile> {
                         ),
                       );
               },
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -250,73 +207,69 @@ class _CardShopMobileState extends State<CardShopMobile> {
         ),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          InkWell(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 13.0),
-              decoration: pageIndex == 0
-                  ? const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
+      child: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        final cardShopWatcher = ref.watch(cardShopController);
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 13.0),
+                decoration: cardShopWatcher.pageIndex == 0
+                    ? const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: AppColors.primary,
+                            width: 2.0,
+                          ),
                         ),
-                      ),
-                    )
-                  : null,
-              child: Text(
-                AppStrings.keyCardExclusive,
-                style: TextStyles.regular.copyWith(
-                  fontFamily: TextStyles.secondaryFontFamily,
-                  color: pageIndex == 0
-                      ? AppColors.primary
-                      : AppColors.indicatorColor,
+                      )
+                    : null,
+                child: Text(
+                  AppStrings.keyCardExclusive,
+                  style: TextStyles.regular.copyWith(
+                    fontFamily: TextStyles.secondaryFontFamily,
+                    color: cardShopWatcher.pageIndex == 0
+                        ? AppColors.primary
+                        : AppColors.indicatorColor,
+                  ),
                 ),
               ),
+              onTap: () {
+                cardShopWatcher.setOrIncrementPageIndex(index: 0);
+              },
             ),
-            onTap: () {
-              setState(
-                () {
-                  pageIndex = 0;
-                },
-              );
-            },
-          ),
-          InkWell(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 13.0),
-              decoration: pageIndex == 1
-                  ? const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
+            InkWell(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 13.0),
+                decoration: cardShopWatcher.pageIndex == 1
+                    ? const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: AppColors.primary,
+                            width: 2.0,
+                          ),
                         ),
-                      ),
-                    )
-                  : null,
-              child: Text(
-                AppStrings.keyOpenStore,
-                style: TextStyles.regular.copyWith(
-                  fontFamily: TextStyles.secondaryFontFamily,
-                  color: pageIndex == 1
-                      ? AppColors.primary
-                      : AppColors.indicatorColor,
+                      )
+                    : null,
+                child: Text(
+                  AppStrings.keyOpenStore,
+                  style: TextStyles.regular.copyWith(
+                    fontFamily: TextStyles.secondaryFontFamily,
+                    color: cardShopWatcher.pageIndex == 1
+                        ? AppColors.primary
+                        : AppColors.indicatorColor,
+                  ),
                 ),
               ),
+              onTap: () {
+                cardShopWatcher.setOrIncrementPageIndex(index: 1);
+              },
             ),
-            onTap: () {
-              setState(
-                () {
-                  pageIndex = 1;
-                },
-              );
-            },
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

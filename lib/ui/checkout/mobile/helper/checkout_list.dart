@@ -1,22 +1,25 @@
+import 'package:cardtrading/framework/controllers/checkout/checkout_controller.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CheckoutList extends StatefulWidget {
-  const CheckoutList({super.key, required this.url});
-
+class CheckoutList extends ConsumerStatefulWidget {
+  const CheckoutList(this.cartModel, this.index, this.onRemoveTap, {super.key, required this.url});
   final String url;
+  final CartModel cartModel;
+  final int index;
+  final void Function()? onRemoveTap;
 
   @override
-  State<CheckoutList> createState() => _CheckoutListState();
+  ConsumerState<CheckoutList> createState() => _CheckoutListState();
 }
 
-class _CheckoutListState extends State<CheckoutList> {
-  int itemCount = 1;
+class _CheckoutListState extends ConsumerState<CheckoutList> {
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class _CheckoutListState extends State<CheckoutList> {
               SizedBox(
                 width: 179.w,
                 child: Text(
-                  AppStrings.keyCardDescription,
+                  widget.cartModel.cardName,
                   softWrap: true,
                   maxLines: 2,
                   style: TextStyles.regular.copyWith(
@@ -61,7 +64,7 @@ class _CheckoutListState extends State<CheckoutList> {
                 height: 10.h,
               ),
               Text(
-                AppStrings.keyCardExclusive,
+                widget.cartModel.cardType,
                 style: TextStyles.regular.copyWith(
                     fontFamily: 'Sora',
                     fontSize: 12.sp,
@@ -70,56 +73,53 @@ class _CheckoutListState extends State<CheckoutList> {
               SizedBox(
                 height: 13.h,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(
-                        () {
-                          itemCount >= 1 ? itemCount-- : itemCount = 0;
+              Consumer(
+                  builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                    final checkoutWatch = ref.watch(checkoutController);
+                    return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          checkoutWatch.decreaseQty(widget.index);
                         },
-                      );
-                    },
-                    child: Container(
-                      width: 24.w,
-                      height: 24.w,
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: const Icon(
-                        Icons.remove,
-                        color: AppColors.greyText,
-                        size: 12,
+                        child: Container(
+                          width: 24.w,
+                          height: 24.w,
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: const Icon(
+                            Icons.remove,
+                            color: AppColors.greyText,
+                            size: 12,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Text(
-                    itemCount.toString(),
-                    style: TextStyles.regular.copyWith(
-                        fontSize: 14.sp,
-                        color: AppColors.white,
-                        fontFamily: 'Sora'),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(
-                        () {
-                          itemCount++;
+                      Text(
+                        checkoutWatch.cartList[widget.index].cardQty.toString(),
+                        style: TextStyles.regular.copyWith(
+                            fontSize: 14.sp,
+                            color: AppColors.white,
+                            fontFamily: 'Sora'),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          checkoutWatch.increaseQty(widget.index);
                         },
-                      );
-                    },
-                    child: Container(
-                      width: 24.w,
-                      height: 24.h,
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: const Icon(
-                        Icons.add,
-                        color: AppColors.primary,
-                        size: 12,
+                        child: Container(
+                          width: 24.w,
+                          height: 24.h,
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: const Icon(
+                            Icons.add,
+                            color: AppColors.primary,
+                            size: 12,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                }
               ),
               SizedBox(
                 height: 18.h,
@@ -134,13 +134,7 @@ class _CheckoutListState extends State<CheckoutList> {
             ],
           ),
           InkWell(
-            onTap: () {
-              setState(
-                () {
-                  itemCount = 0;
-                },
-              );
-            },
+            onTap: widget.onRemoveTap,
             child: SvgPicture.asset(
               '${AppAssets.svgLocation}delete_bin.svg',
               width: 20.w,

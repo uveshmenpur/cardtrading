@@ -1,4 +1,4 @@
-import 'package:cardtrading/ui/terms_and_condition/mobile/subscription_mobile.dart';
+import 'package:cardtrading/ui/subscription_plan/mobile/subscription_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

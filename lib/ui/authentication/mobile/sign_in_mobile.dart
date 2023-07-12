@@ -6,17 +6,18 @@ import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SignInMobile extends StatefulWidget {
+class SignInMobile extends ConsumerStatefulWidget {
   const SignInMobile({super.key});
 
   @override
-  State<SignInMobile> createState() => _SignInMobileState();
+  ConsumerState<SignInMobile> createState() => _SignInMobileState();
 }
 
-class _SignInMobileState extends State<SignInMobile> {
+class _SignInMobileState extends ConsumerState<SignInMobile>{
   final _formKey = GlobalKey<FormState>();
 
   @override

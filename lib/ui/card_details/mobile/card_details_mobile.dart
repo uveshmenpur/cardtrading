@@ -1,37 +1,27 @@
+import 'package:cardtrading/framework/controllers/card_details/card_details_controller.dart';
+import 'package:cardtrading/framework/controllers/checkout/checkout_controller.dart';
 import 'package:cardtrading/ui/card_details/mobile/helper/card_details_icons.dart';
 import 'package:cardtrading/ui/checkout/checkout.dart';
-import 'package:cardtrading/ui/home_screen/home_screen.dart';
-import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CardDetailsMobile extends StatefulWidget {
-  const CardDetailsMobile({super.key, required this.url});
+class CardDetailsMobile extends ConsumerStatefulWidget {
+  CardDetailsMobile({super.key, required this.url});
 
   final String url;
+  final cartModel = CartModel(cardName: AppStrings.keyCardDescription, cardType: AppStrings.keyCardExclusive, cardQty: 1, cardPrice: AppStrings.keyCardPrice);
 
   @override
-  State<CardDetailsMobile> createState() => _CardDetailsMobileState();
+  ConsumerState<CardDetailsMobile> createState() => _CardDetailsMobileState();
 }
 
-class _CardDetailsMobileState extends State<CardDetailsMobile> {
-  bool isFavourite = false;
-  final keys = [
-    AppStrings.keyCardSubjectName,
-    AppStrings.keyCardGrade,
-    AppStrings.keyCardBrand
-  ];
-  final values = [
-    AppStrings.keyCardSubjectNameValue,
-    AppStrings.keyCardGradeValue,
-    AppStrings.keyCardBrandValue
-  ];
-
+class _CardDetailsMobileState extends ConsumerState<CardDetailsMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +32,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+              Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back)),
         centerTitle: true,
@@ -69,7 +58,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
             _divider(),
             ListTile(
               title: Text(
-                AppStrings.keyCardDescription,
+                widget.cartModel.cardName,
                 maxLines: 2,
                 softWrap: true,
                 style: TextStyles.medium.copyWith(color: AppColors.white),
@@ -77,23 +66,23 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                    iconSize: 24,
-                    padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                    onPressed: () {
-                      setState(
-                        () {
-                          isFavourite
-                              ? isFavourite = false
-                              : isFavourite = true;
-                        },
-                      );
-                    },
-                    icon: Icon(
-                      isFavourite ? Icons.favorite : Icons.favorite_border,
-                      color: AppColors.primary,
-                    ),
-                  ),
+                  Consumer(builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    final cardDetailsWatch = ref.watch(cardDetailsController);
+                    return IconButton(
+                      iconSize: 24,
+                      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                      onPressed: () {
+                        cardDetailsWatch.setFavourite();
+                      },
+                      icon: Icon(
+                        cardDetailsWatch.isFavourite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: AppColors.primary,
+                      ),
+                    );
+                  }),
                   Text(
                     AppStrings.keyCardLikesCount,
                     style: TextStyles.regular,
@@ -111,7 +100,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                       color: AppColors.golden,
                       child: Center(
                         child: Text(
-                          AppStrings.keyCardExclusive,
+                          widget.cartModel.cardType,
                           style: TextStyles.semiBold
                               .copyWith(color: Colors.black, fontSize: 12.sp),
                         ),
@@ -137,34 +126,38 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
             Container(
               padding: const EdgeInsets.all(20.0),
               alignment: Alignment.topLeft,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...List.generate(
-                    keys.length,
-                    (index) {
-                      return RichText(
-                        text: TextSpan(
-                          text: keys[index],
-                          style: TextStyles.regular.copyWith(
-                              color: AppColors.lightGolden, fontSize: 12.sp),
-                          children: [
-                            TextSpan(
-                              text: values[index],
-                              style: TextStyles.light.copyWith(
-                                fontSize: 12.sp,
-                                color: AppColors.lightGolden,
+              child: Consumer(builder:
+                  (BuildContext context, WidgetRef ref, Widget? child) {
+                final cardDetailsWatch = ref.watch(cardDetailsController);
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...List.generate(
+                      cardDetailsWatch.keys.length,
+                      (index) {
+                        return RichText(
+                          text: TextSpan(
+                            text: cardDetailsWatch.keys[index],
+                            style: TextStyles.regular.copyWith(
+                                color: AppColors.lightGolden, fontSize: 12.sp),
+                            children: [
+                              TextSpan(
+                                text: cardDetailsWatch.values[index],
+                                style: TextStyles.light.copyWith(
+                                  fontSize: 12.sp,
+                                  color: AppColors.lightGolden,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.left,
-                      );
-                    },
-                  ),
-                ],
-              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.left,
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }),
             ),
             _divider(),
             Container(
@@ -185,35 +178,28 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
                       color: AppColors.white,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CardDetailsIcon(
-                        svg: SvgPicture.asset(
-                          '${AppAssets.svgLocation}shipping.svg',
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        title: AppStrings.keyExpressShipping,
-                      ),
-                      CardDetailsIcon(
-                        svg: SvgPicture.asset(
-                          '${AppAssets.svgLocation}guarantee.svg',
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        title: AppStrings.keyAuthenticGuarantee,
-                      ),
-                      CardDetailsIcon(
-                        svg: SvgPicture.asset(
-                          '${AppAssets.svgLocation}payment.svg',
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        title: AppStrings.keySecurePayment,
-                      ),
-                    ],
-                  ),
+                  Consumer(builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    final cardDetailsWatch = ref.watch(cardDetailsController);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ...List.generate(
+                            cardDetailsWatch.cardDetailDescription.length,
+                            (index) {
+                          return CardDetailsIcon(
+                            svg: SvgPicture.asset(
+                              cardDetailsWatch.cardDetailIcons[index],
+                              width: 40.w,
+                              height: 40.h,
+                            ),
+                            title:
+                                cardDetailsWatch.cardDetailDescription[index],
+                          );
+                        })
+                      ],
+                    );
+                  }),
                 ],
               ),
             ),
@@ -228,7 +214,7 @@ class _CardDetailsMobileState extends State<CardDetailsMobile> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const Checkout();
+                  return Checkout(cartModel: widget.cartModel,);
                 },
               ),
             );

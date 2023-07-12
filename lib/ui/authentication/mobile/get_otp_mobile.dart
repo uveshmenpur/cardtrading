@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:cardtrading/framework/controllers/authentication/get_otp_controller.dart';
 import 'package:cardtrading/ui/complete_your_profile/complete_profile.dart';
 import 'package:cardtrading/ui/onboarding/onboarding.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
@@ -9,38 +8,29 @@ import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class GetOtpMobile extends StatefulWidget {
+class GetOtpMobile extends ConsumerStatefulWidget {
   const GetOtpMobile({super.key});
 
   @override
-  State<GetOtpMobile> createState() => _GetOtpMobileState();
+  ConsumerState<GetOtpMobile> createState() => _GetOtpMobileState();
 }
 
-class _GetOtpMobileState extends State<GetOtpMobile> {
-  int _countDown = 59;
-  late Timer timer;
+class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
   final _formKey = GlobalKey<FormState>();
-
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_countDown > 0) {
-        setState(() {
-          _countDown--;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final getOtpWatch = ref.watch(getOtpController);
+      getOtpWatch.startTimer();
+    });
   }
 
   @override
@@ -133,31 +123,45 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
                             color: AppColors.checkoutTextColor,
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              _countDown = 8;
-                              startTimer();
-                            });
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            final getOtpWatch = ref.watch(getOtpController);
+                            return InkWell(
+                              onTap: () {
+                                getOtpWatch.changeCount(20);
+                                getOtpWatch.startTimer();
+                              },
+                              child: Visibility(
+                                visible: getOtpWatch.countDown == 0,
+                                child: Text(
+                                  AppStrings.keyResend,
+                                  style: TextStyles.semiBold.copyWith(
+                                      fontSize: 12.sp,
+                                      color: AppColors.primary,
+                                      fontFamily: 'Sora'),
+                                ),
+                              ),
+                            );
                           },
-                          child: Visibility(
-                            visible: _countDown == 0,
-                            child: Text(
-                              AppStrings.keyResend,
-                              style: TextStyles.semiBold.copyWith(
-                                  fontSize: 12.sp,
-                                  color: AppColors.primary,
-                                  fontFamily: 'Sora'),
-                            ),
-                          ),
                         ),
-                        Expanded(
-                          child: Text(
-                            _countDown.toString().length >= 2
-                                ? _countDown.toString().padLeft(3, '00:')
-                                : _countDown.toString().padLeft(2, '00:0'),
-                            textAlign: TextAlign.end,
-                          ),
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            final getOtpRead = ref.watch(getOtpController);
+                            return Expanded(
+                              child: Text(
+                                getOtpRead.countDown.toString().length >= 2
+                                    ? getOtpRead.countDown
+                                        .toString()
+                                        .padLeft(3, '00:')
+                                    : getOtpRead.countDown
+                                        .toString()
+                                        .padLeft(2, '00:0'),
+                                textAlign: TextAlign.end,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -179,10 +183,20 @@ class _GetOtpMobileState extends State<GetOtpMobile> {
   Widget _pinCodeTextField(BuildContext context) {
     return PinCodeTextField(
       validator: (value) {
-        if (value?.length != 6) {
-          return 'Enter Valid OTP';
+        try {
+          double num = double.parse(value?? '');
+          if (value?.length != 6) {
+            return 'Enter Valid OTP';
+          } else {
+            return null;
+          }
+        } catch (e) {
+          if (value?.length != 6) {
+            return 'Enter Valid OTP';
+          } else {
+            return 'Enter Valid OTP';
+          }
         }
-        return null;
       },
       length: 6,
       obscureText: false,
