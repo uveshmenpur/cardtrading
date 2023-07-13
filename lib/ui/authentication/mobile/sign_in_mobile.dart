@@ -17,7 +17,7 @@ class SignInMobile extends ConsumerStatefulWidget {
   ConsumerState<SignInMobile> createState() => _SignInMobileState();
 }
 
-class _SignInMobileState extends ConsumerState<SignInMobile>{
+class _SignInMobileState extends ConsumerState<SignInMobile> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,6 +25,7 @@ class _SignInMobileState extends ConsumerState<SignInMobile>{
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.background,
         leading: IconButton(
           onPressed: () {
@@ -55,40 +56,42 @@ class _SignInMobileState extends ConsumerState<SignInMobile>{
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 0.6.sw,
-                    child: Text(
-                      AppStrings.keySignInTitle,
-                      style: TextStyles.medium.copyWith(
-                        fontSize: 18.sp,
-                        color: AppColors.golden,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 0.6.sw,
+                      child: Text(
+                        AppStrings.keySignInTitle,
+                        style: TextStyles.medium.copyWith(
+                          fontSize: 18.sp,
+                          color: AppColors.golden,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  SizedBox(
-                    width: 0.9.sw,
-                    child: Text(
-                      AppStrings.keySignInContent,
-                      style: TextStyles.regular.copyWith(
-                        fontSize: 12.sp,
-                        color: AppColors.checkoutTextColor,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    SizedBox(
+                      width: 0.9.sw,
+                      child: Text(
+                        AppStrings.keySignInContent,
+                        style: TextStyles.regular.copyWith(
+                          fontSize: 12.sp,
+                          color: AppColors.checkoutTextColor,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
 
-                  ///Enter Phone Number Text Fields
-                  const SignInTextField(),
-                ],
+                    ///Enter Phone Number Text Fields
+                    const SignInTextField(),
+                  ],
+                ),
               ),
             ),
           ),
