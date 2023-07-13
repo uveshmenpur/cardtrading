@@ -11,14 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:slider_button/slider_button.dart';
 
-class OnBoardingMobile extends StatefulWidget {
+class OnBoardingMobile extends ConsumerStatefulWidget {
   const OnBoardingMobile({super.key});
 
   @override
-  State<OnBoardingMobile> createState() => _OnBoardingMobileState();
+  ConsumerState<OnBoardingMobile> createState() => _OnBoardingMobileState();
 }
 
-class _OnBoardingMobileState extends State<OnBoardingMobile> {
+class _OnBoardingMobileState extends ConsumerState<OnBoardingMobile> {
   PageController pageController = PageController(initialPage: 0);
 
   @override
@@ -28,14 +28,15 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
           final onBoardingWatch = ref.watch(onBoardingController);
-          return _bodyWidget(context,onBoardingWatch);
+          return _bodyWidget(context, onBoardingWatch);
         },
       ),
     );
   }
 
   ///Body Widget
-  Widget _bodyWidget(BuildContext context,OnBoardingController onBoardingWatch) {
+  Widget _bodyWidget(
+      BuildContext context, OnBoardingController onBoardingWatch) {
     return Padding(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
       child: Column(
@@ -56,11 +57,7 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                   height: 0.7.sh,
                   child: PageView(
                     onPageChanged: (pageIndex) {
-                      setState(
-                            () {
-                          onBoardingWatch.changePage(pageIndex);
-                        },
-                      );
+                      onBoardingWatch.changePage(pageIndex);
                     },
                     controller: pageController,
                     children: List.generate(
@@ -68,7 +65,9 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(child: Container(),),
+                          Expanded(
+                            child: Container(),
+                          ),
                           Text(
                             onBoardingWatch.onBoardingTitle[index],
                             maxLines: 2,
@@ -105,7 +104,9 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
           ),
 
           ///Display Common Button on first 2 pages and Slider on 3rd page
-          onBoardingWatch.selectedPage == 2 ? _sliderButton(context,onBoardingWatch) : _commonButton(onBoardingWatch),
+          onBoardingWatch.selectedPage == 2
+              ? _sliderButton(context, onBoardingWatch)
+              : _commonButton(onBoardingWatch),
         ],
       ),
     );
@@ -118,18 +119,17 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
         TextButton(
           child: onBoardingWatch.selectedPage != 2
               ? Text(
-            AppStrings.keySkip,
-            textAlign: TextAlign.start,
-            style: TextStyles.light.copyWith(
-              color: AppColors.checkoutTextColor,
-            ),
-          )
+                  AppStrings.keySkip,
+                  textAlign: TextAlign.start,
+                  style: TextStyles.light.copyWith(
+                    color: AppColors.checkoutTextColor,
+                  ),
+                )
               : const SizedBox(),
           onPressed: () {
-            setState(() {
-              onBoardingWatch.changePage(onBoardingWatch.onBoardingTitle.length - 1);
-              onBoardingWatch.animateToNextPage(pageController);
-            });
+            onBoardingWatch
+                .changePage(onBoardingWatch.onBoardingTitle.length - 1);
+            onBoardingWatch.animateToNextPage(pageController);
           },
         ),
       ],
@@ -146,18 +146,15 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
         color: AppColors.selectedButtonText,
       ),
       onPressed: () {
-        setState(
-              () {
-            onBoardingWatch.increment();
-            onBoardingWatch.animateToNextPage(pageController);
-          },
-        );
+        onBoardingWatch.increment();
+        onBoardingWatch.animateToNextPage(pageController);
       },
     );
   }
 
   ///Slider Button
-  Widget _sliderButton(BuildContext context, OnBoardingController onBoardingWatch) {
+  Widget _sliderButton(
+      BuildContext context, OnBoardingController onBoardingWatch) {
     return SliderButton(
       backgroundColor: AppColors.background,
       width: double.infinity,
@@ -198,7 +195,7 @@ class _OnBoardingMobileState extends State<OnBoardingMobile> {
     return Row(
       children: List.generate(
         onBoardingWatch.onBoardingTitle.length,
-            (index) {
+        (index) {
           return Container(
             margin: EdgeInsets.only(right: 5.w),
             height: 6.h,

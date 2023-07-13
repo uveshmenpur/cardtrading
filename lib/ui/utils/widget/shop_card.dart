@@ -1,24 +1,24 @@
+import 'package:cardtrading/framework/controllers/card_shop/shop_card_controller.dart';
 import 'package:cardtrading/ui/card_details/card_details.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ShopCard extends StatefulWidget {
+class ShopCard extends ConsumerStatefulWidget {
   const ShopCard({super.key, required this.index, this.onTap});
 
   final int index;
   final void Function()? onTap;
 
   @override
-  State<ShopCard> createState() => _ShopCardState();
+  ConsumerState<ShopCard> createState() => _ShopCardState();
 }
 
-class _ShopCardState extends State<ShopCard> {
-  bool isFavourite = false;
-
+class _ShopCardState extends ConsumerState<ShopCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -61,12 +61,12 @@ class _ShopCardState extends State<ShopCard> {
                   iconSize: 24,
                   padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
                   onPressed: () {
-                    setState(() {
-                      isFavourite ? isFavourite = false : isFavourite = true;
-                    });
+                    ref.watch(shopCardController).favourite();
                   },
                   icon: Icon(
-                    isFavourite ? Icons.favorite : Icons.favorite_border,
+                    ref.watch(shopCardController).isFavourite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     color: AppColors.primary,
                   ),
                 ),
