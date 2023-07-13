@@ -6,17 +6,18 @@ import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SignInMobile extends StatefulWidget {
+class SignInMobile extends ConsumerStatefulWidget {
   const SignInMobile({super.key});
 
   @override
-  State<SignInMobile> createState() => _SignInMobileState();
+  ConsumerState<SignInMobile> createState() => _SignInMobileState();
 }
 
-class _SignInMobileState extends State<SignInMobile> {
+class _SignInMobileState extends ConsumerState<SignInMobile> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -24,6 +25,7 @@ class _SignInMobileState extends State<SignInMobile> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.background,
         leading: IconButton(
           onPressed: () {
@@ -54,40 +56,42 @@ class _SignInMobileState extends State<SignInMobile> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 0.6.sw,
-                    child: Text(
-                      AppStrings.keySignInTitle,
-                      style: TextStyles.medium.copyWith(
-                        fontSize: 18.sp,
-                        color: AppColors.golden,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 0.6.sw,
+                      child: Text(
+                        AppStrings.keySignInTitle,
+                        style: TextStyles.medium.copyWith(
+                          fontSize: 18.sp,
+                          color: AppColors.golden,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  SizedBox(
-                    width: 0.9.sw,
-                    child: Text(
-                      AppStrings.keySignInContent,
-                      style: TextStyles.regular.copyWith(
-                        fontSize: 12.sp,
-                        color: AppColors.checkoutTextColor,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    SizedBox(
+                      width: 0.9.sw,
+                      child: Text(
+                        AppStrings.keySignInContent,
+                        style: TextStyles.regular.copyWith(
+                          fontSize: 12.sp,
+                          color: AppColors.checkoutTextColor,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
 
-                  ///Enter Phone Number Text Fields
-                  const SignInTextField(),
-                ],
+                    ///Enter Phone Number Text Fields
+                    const SignInTextField(),
+                  ],
+                ),
               ),
             ),
           ),

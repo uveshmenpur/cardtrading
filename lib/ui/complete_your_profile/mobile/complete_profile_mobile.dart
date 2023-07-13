@@ -1,3 +1,4 @@
+import 'package:cardtrading/framework/controllers/complete_your_profile/complete_profie_controller.dart';
 import 'package:cardtrading/ui/complete_your_profile/add_address.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
@@ -6,18 +7,19 @@ import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CompleteProfileMobile extends StatefulWidget {
+class CompleteProfileMobile extends ConsumerStatefulWidget {
   const CompleteProfileMobile({super.key});
 
   @override
-  State<CompleteProfileMobile> createState() => _CompleteProfileMobileState();
+  ConsumerState<CompleteProfileMobile> createState() =>
+      _CompleteProfileMobileState();
 }
 
-class _CompleteProfileMobileState extends State<CompleteProfileMobile> {
-  bool haveReferral = false;
+class _CompleteProfileMobileState extends ConsumerState<CompleteProfileMobile> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -142,73 +144,79 @@ class _CompleteProfileMobileState extends State<CompleteProfileMobile> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    InkWell(
-                      onTap: () {
-                        setState(
-                          () {
-                            haveReferral = true;
+                    Consumer(
+                      builder:
+                          (BuildContext context, WidgetRef ref, Widget? child) {
+                        final completeProfileWatch =
+                            ref.watch(completeProfileController);
+                        return InkWell(
+                          onTap: () {
+                            completeProfileWatch.addReferral();
                           },
+                          child: Text(
+                            AppStrings.keyHaveReferral,
+                            style: TextStyles.light.copyWith(
+                              fontFamily: 'Sora',
+                              color: AppColors.primary,
+                              fontSize: 12.sp,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primary,
+                            ),
+                          ),
                         );
                       },
-                      child: Text(
-                        AppStrings.keyHaveReferral,
-                        style: TextStyles.light.copyWith(
-                          fontFamily: 'Sora',
-                          color: AppColors.primary,
-                          fontSize: 12.sp,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppColors.primary,
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
-                    Visibility(
-                      visible: haveReferral,
-                      child: TextFormField(
-                        cursorColor: AppColors.primary,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.keyEnterReferral,
-                          fillColor: AppColors.buttonBg,
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 20.0),
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              setState(
-                                () {
-                                  haveReferral = false;
+                    Consumer(
+                      builder:
+                          (BuildContext context, WidgetRef ref, Widget? child) {
+                        final completeProfileWatch =
+                            ref.watch(completeProfileController);
+                        return Visibility(
+                          visible: completeProfileWatch.hasReferral,
+                          child: TextFormField(
+                            cursorColor: AppColors.primary,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.keyEnterReferral,
+                              fillColor: AppColors.buttonBg,
+                              filled: true,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0, vertical: 20.0),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  completeProfileWatch.addReferral();
                                 },
-                              );
-                            },
-                            child: Container(
-                              width: 87.w,
-                              height: 54.h,
-                              padding: EdgeInsets.zero,
-                              color: AppColors.primary,
-                              child: Center(
-                                child: Text(
-                                  AppStrings.keyApply,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyles.regular.copyWith(
-                                    fontSize: 12.sp,
-                                    fontFamily: 'Sora',
-                                    backgroundColor: AppColors.primary,
-                                    color: AppColors.selectedButtonText,
+                                child: Container(
+                                  width: 87.w,
+                                  height: 54.h,
+                                  padding: EdgeInsets.zero,
+                                  color: AppColors.primary,
+                                  child: Center(
+                                    child: Text(
+                                      AppStrings.keyApply,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyles.regular.copyWith(
+                                        fontSize: 12.sp,
+                                        fontFamily: 'Sora',
+                                        backgroundColor: AppColors.primary,
+                                        color: AppColors.selectedButtonText,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
+                              hintStyle: TextStyles.light.copyWith(
+                                fontFamily: 'Sora',
+                                color: AppColors.buttonText,
+                                backgroundColor: AppColors.buttonBg,
+                              ),
+                              border: InputBorder.none,
                             ),
                           ),
-                          hintStyle: TextStyles.light.copyWith(
-                            fontFamily: 'Sora',
-                            color: AppColors.buttonText,
-                            backgroundColor: AppColors.buttonBg,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),

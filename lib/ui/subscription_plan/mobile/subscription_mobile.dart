@@ -1,27 +1,26 @@
 import 'package:cardtrading/ui/home_screen/mobile/helper/home_screen_drawer.dart';
-import 'package:cardtrading/ui/terms_and_condition/mobile/helper/subscription_card.dart';
-import 'package:cardtrading/ui/terms_and_condition/mobile/helper/subscription_screen.dart';
+import 'package:cardtrading/ui/subscription_plan/mobile/helper/subscription_card.dart';
+import 'package:cardtrading/ui/subscription_plan/mobile/helper/subscription_screen.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SubscriptionMobile extends StatefulWidget {
+class SubscriptionMobile extends ConsumerStatefulWidget {
   const SubscriptionMobile({super.key});
 
-
   @override
-  State<SubscriptionMobile> createState() =>
+  ConsumerState<SubscriptionMobile> createState() =>
       _SubscriptionMobileState();
 }
 
-/// NOTE: This Screen is for Subscription Plan Module and not for Terms And Condition Module It was named by mistake I will change it soon
 
-class _SubscriptionMobileState extends State<SubscriptionMobile> {
+class _SubscriptionMobileState extends ConsumerState<SubscriptionMobile> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
 
   @override

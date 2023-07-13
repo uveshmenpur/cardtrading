@@ -1,24 +1,23 @@
 import 'dart:async';
-
 import 'package:cardtrading/ui/choose_language/choose_language.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SplashScreenMobile extends StatefulWidget {
+class SplashScreenMobile extends ConsumerStatefulWidget {
   const SplashScreenMobile({super.key});
 
   @override
-  State<SplashScreenMobile> createState() => _SplashScreenMobileState();
+  ConsumerState<SplashScreenMobile> createState() => _SplashScreenMobileState();
 
 }
 
-class _SplashScreenMobileState extends State<SplashScreenMobile> {
+class _SplashScreenMobileState extends ConsumerState<SplashScreenMobile> {
   @override
   void initState() {
     super.initState();
-
     ///Code to redirect to the onboarding screen
     Future.delayed(
       const Duration(seconds: 2),

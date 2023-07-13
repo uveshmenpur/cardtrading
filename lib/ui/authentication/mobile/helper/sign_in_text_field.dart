@@ -18,11 +18,21 @@ class SignInTextField extends StatelessWidget {
         onTapOutside: (pointer) {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        validator: (value){
-          if(value?.length != 10){
-            return 'Enter Valid Phone Number';
+        validator: (value) {
+          try {
+            double num = double.parse(value ?? '');
+            if (value?.length != 10) {
+              return 'Enter Valid Phone Number';
+            } else {
+              return null;
+            }
+          } catch (e) {
+            if (value?.length != 10) {
+              return 'Invalid Input';
+            } else {
+              return 'Invalid Input';
+            }
           }
-          return null;
         },
         keyboardType: TextInputType.phone,
         maxLength: 10,

@@ -45,6 +45,7 @@ dependencies:
   dropdown_button2: ^2.1.4
   email_validator: '^2.1.16'
   flutter_riverpod:
+  go_router:
 
 dev_dependencies:
   flutter_test:
