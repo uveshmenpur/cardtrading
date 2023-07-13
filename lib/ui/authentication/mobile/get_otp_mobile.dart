@@ -129,7 +129,7 @@ class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
                             final getOtpWatch = ref.watch(getOtpController);
                             return InkWell(
                               onTap: () {
-                                getOtpWatch.changeCount(20);
+                                getOtpWatch.changeCount(60);
                                 getOtpWatch.startTimer();
                               },
                               child: Visibility(

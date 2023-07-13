@@ -9,6 +9,8 @@ final onBoardingController = ChangeNotifierProvider(
 );
 
 class OnBoardingController extends ChangeNotifier {
+  PageController pageController = PageController(initialPage: 0);
+
   int selectedPage = 0;
 
   List<String> onBoardingTitle = [
@@ -21,15 +23,18 @@ class OnBoardingController extends ChangeNotifier {
     AppStrings.keyOnBoardingContent2,
     AppStrings.keyOnBoardingContent3
   ];
-  void changePage(int index){
+
+  void changePage(int index) {
     selectedPage = index;
     notifyListeners();
   }
-  void increment(){
+
+  void increment() {
     selectedPage++;
     notifyListeners();
   }
-  void animateToNextPage(PageController pageController) {
+
+  void animateToNextPage() {
     pageController.animateToPage(
       selectedPage,
       duration: const Duration(milliseconds: 250),

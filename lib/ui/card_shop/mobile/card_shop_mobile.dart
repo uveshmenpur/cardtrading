@@ -26,7 +26,6 @@ class _CardShopMobileState extends ConsumerState<CardShopMobile> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
     return Scaffold(
       key: _globalKey,
       appBar: AppBar(
