@@ -42,23 +42,25 @@ class AboutUsScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: const Column(
-        children: [
-          SizedBox(
-            height: 10.0,
-          ),
-          ///Common Paragraph
-          CommonParagraph(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-            child: Divider(
-              thickness: 1.0,
-              color: AppColors.indicatorColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10.0.h,
             ),
-          ),
-          ///Common Paragraph
-          CommonParagraph(),
-        ],
+            ///Common Paragraph
+            const CommonParagraph(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 8.0.h),
+              child: const Divider(
+                thickness: 1.0,
+                color: AppColors.indicatorColor,
+              ),
+            ),
+            ///Common Paragraph
+            const CommonParagraph(),
+          ],
+        ),
       ),
     );
   }

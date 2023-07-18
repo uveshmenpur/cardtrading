@@ -14,7 +14,6 @@ class CompleteProfileController extends ChangeNotifier {
   final PageController pageController = PageController();
 
   get firstPageFormKey => _firstPageFormKey;
-
   get secondPageFormKey => _secondPageFormKey;
 
   void addReferral() {
@@ -37,6 +36,7 @@ class CompleteProfileController extends ChangeNotifier {
     AppStrings.keyAddressTypeTwo,
     AppStrings.keyAddressTypeThree
   ];
+
 
   void setArea(String? value) {
     area = value;
@@ -76,6 +76,12 @@ class CompleteProfileController extends ChangeNotifier {
     );
     page++;
     notifyListeners();
+  }
+  String? validateDropDowns(String? value,int index){
+    if((areas.contains(value) && index == 0) || (blocks.contains(value) && index == 1) || (streets.contains(value) && index == 3)){
+      return 'Enter Valid Value';
+    }
+    return null;
   }
 
   void resetPage(){

@@ -8,7 +8,7 @@ final getOtpController = ChangeNotifierProvider(
   },
 );
 
-class GetOtpController extends ChangeNotifier {
+class GetOtpController extends ChangeNotifier{
   int countDown = 59;
   late Timer timer;
 
@@ -16,6 +16,9 @@ class GetOtpController extends ChangeNotifier {
     countDown = count;
     notifyListeners();
   }
+
+
+
   void decrement(){
     countDown--;
     notifyListeners();

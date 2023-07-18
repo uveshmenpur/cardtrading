@@ -106,6 +106,7 @@ class AppStrings {
   static const keyBasicPlanBenefits =
       'Access To Essential Features For Trading Cards.';
   static const keyCompleteYourProfile = 'Complete Your Profile';
+  static const keyAddAddress = 'Add Address';
   static const keyCompleteYourProfileContent =
       'Please Enter Your Personal Detail By That Verify Your Date And Move Further.';
   static const keyEnterYourPersonalDetails = 'Enter Your Personal Details Here';

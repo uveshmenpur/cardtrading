@@ -5,8 +5,7 @@ import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../framework/controllers/onboarding/onboarding_controller.dart';
+import 'package:cardtrading/framework/controllers/onboarding/onboarding_controller.dart';
 
 class OnBoardingNextButton extends StatelessWidget {
   const OnBoardingNextButton({super.key});

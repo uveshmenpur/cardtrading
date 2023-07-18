@@ -21,7 +21,7 @@ class GetOtpMobile extends ConsumerStatefulWidget {
   ConsumerState<GetOtpMobile> createState() => _GetOtpMobileState();
 }
 
-class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
+class _GetOtpMobileState extends ConsumerState<GetOtpMobile>{
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -35,6 +35,7 @@ class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -184,7 +185,6 @@ class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
     return PinCodeTextField(
       validator: (value) {
         try {
-          double num = double.parse(value?? '');
           if (value?.length != 6) {
             return 'Enter Valid OTP';
           } else {
@@ -265,3 +265,4 @@ class _GetOtpMobileState extends ConsumerState<GetOtpMobile> {
     );
   }
 }
+

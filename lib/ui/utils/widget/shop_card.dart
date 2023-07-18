@@ -8,29 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ShopCard extends ConsumerStatefulWidget {
+class ShopCard extends StatelessWidget {
   const ShopCard({super.key, required this.index, this.onTap});
 
   final int index;
   final void Function()? onTap;
 
   @override
-  ConsumerState<ShopCard> createState() => _ShopCardState();
-}
-
-class _ShopCardState extends ConsumerState<ShopCard> {
-  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap ??
+      onTap: onTap ??
           () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) {
                   return CardDetails(
-                      url:
-                          '${AppAssets.imgLocation}card_${widget.index % 4}.png');
+                      url: '${AppAssets.imgLocation}card_${index % 4}.png');
                 },
               ),
             );
@@ -57,22 +51,26 @@ class _ShopCardState extends ConsumerState<ShopCard> {
                         .copyWith(color: Colors.black, fontSize: 12.sp),
                   ),
                 ),
-                IconButton(
-                  iconSize: 24,
-                  padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                  onPressed: () {
-                    ref.watch(shopCardController).favourite();
-                  },
-                  icon: Icon(
-                    ref.watch(shopCardController).isFavourite
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: AppColors.primary,
-                  ),
-                ),
+                Consumer(builder:
+                    (BuildContext context, WidgetRef ref, Widget? widget) {
+                  return IconButton(
+                    iconSize: 24,
+                    padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                    onPressed: () {
+                      ref.watch(shopCardController).favourite();
+                    },
+                    icon: Icon(
+                      ref.watch(shopCardController).isFavourite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: AppColors.primary,
+                    ),
+                  );
+                }),
                 Text(
                   AppStrings.keyCardLikesCount,
                   style: TextStyles.regular,
+                  overflow: TextOverflow.fade,
                 ),
               ],
             ),
@@ -81,7 +79,7 @@ class _ShopCardState extends ConsumerState<ShopCard> {
             ),
             Expanded(
               child: Image.asset(
-                '${AppAssets.imgLocation}card_${widget.index % 4}.png',
+                '${AppAssets.imgLocation}card_${index % 4}.png',
                 width: 100.w,
                 height: 150.h,
                 fit: BoxFit.contain,
@@ -98,13 +96,17 @@ class _ShopCardState extends ConsumerState<ShopCard> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 softWrap: true,
-                style: TextStyles.regular.copyWith(fontSize: 12.sp),
+                style: TextStyles.regular
+                    .copyWith(fontSize: 12.sp, overflow: TextOverflow.ellipsis),
               ),
             ),
             Text(
               AppStrings.keyCardPrice,
               textAlign: TextAlign.center,
-              style: TextStyles.semiBold.copyWith(color: AppColors.primary),
+              style: TextStyles.semiBold.copyWith(
+                color: AppColors.primary,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             SizedBox(
               height: 8.h,

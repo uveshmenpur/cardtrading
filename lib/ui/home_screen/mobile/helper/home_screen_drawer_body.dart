@@ -13,21 +13,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HomeScreenDrawerBody extends ConsumerStatefulWidget {
+class HomeScreenDrawerBody extends StatelessWidget {
   const HomeScreenDrawerBody({super.key});
-
-  @override
-  ConsumerState<HomeScreenDrawerBody> createState() => _HomeScreenDrawerBodyState();
-}
-
-class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
 
   @override
   Widget build(BuildContext context) {
 
     ///Drawer for Home Screen
     return Padding(
-      padding: EdgeInsets.all(8.0.r),
+      padding: EdgeInsets.all(8.0.w),
       child: ListView.separated(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
@@ -55,7 +49,6 @@ class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
                         ),
                       );
                     } else if (index == 3) {
-                      homeScreenDrawerWatch.setOrIncrementId(newId: index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -65,7 +58,6 @@ class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
                         ),
                       );
                     } else if (index == 5) {
-                      homeScreenDrawerWatch.setOrIncrementId(newId: index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -75,7 +67,6 @@ class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
                         ),
                       );
                     } else if (index == 6) {
-                      homeScreenDrawerWatch.setOrIncrementId(newId: index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -85,7 +76,6 @@ class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
                         ),
                       );
                     } else if (index == 9) {
-                      homeScreenDrawerWatch.setOrIncrementId(newId: index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -95,7 +85,6 @@ class _HomeScreenDrawerBodyState extends ConsumerState<HomeScreenDrawerBody> {
                         ),
                       );
                     } else {
-                      homeScreenDrawerWatch.setOrIncrementId(newId: 0);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

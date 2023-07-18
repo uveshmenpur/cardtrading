@@ -2,6 +2,7 @@ import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
+import 'package:cardtrading/ui/utils/widget/common_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,7 +35,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
+      appBar: CommonAppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
           onPressed: () {
@@ -44,20 +45,19 @@ class SubscriptionPlanScreen extends StatelessWidget {
             Icons.arrow_back_outlined,
           ),
         ),
-        title: Text(
+        titleWidget: Text(
           AppStrings.keyTermsAndCondition,
           style: TextStyles.bold.copyWith(
             fontSize: 16.sp,
             color: AppColors.white,
           ),
         ),
-        centerTitle: true,
+        isTitleCentered: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.0.w),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
@@ -72,6 +72,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
                 AppStrings.keyCardLimit,
                 style: TextStyles.medium.copyWith(
                   color: AppColors.white,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               SizedBox(
@@ -152,12 +153,26 @@ class SubscriptionPlanScreen extends StatelessWidget {
   }
 
   Widget _text(String text) {
+    return SubscriptionPlanText(starSvgPath: starSvgPath,text: text,);
+  }
+}
+
+class SubscriptionPlanText extends StatelessWidget {
+  const SubscriptionPlanText({
+    super.key,
+    required this.starSvgPath, required this.text,
+  });
+
+  final String starSvgPath;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          padding: EdgeInsets.symmetric(vertical: 4.0.h),
           child: SvgPicture.asset(
             starSvgPath,
             width: 10.w,
@@ -175,6 +190,7 @@ class SubscriptionPlanScreen extends StatelessWidget {
             style: TextStyles.light.copyWith(
               fontSize: 12.sp,
               color: AppColors.greyText,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),

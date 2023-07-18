@@ -41,8 +41,8 @@ class HomeScreenBanner extends StatelessWidget {
                       left: 0,
                       child: Container(
                         height: 51.h,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.h),
                         color: index == 1 ? AppColors.white : AppColors.primary,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,26 +56,32 @@ class HomeScreenBanner extends StatelessWidget {
                                     text: TextSpan(
                                       text: AppStrings.keyBuy,
                                       style: TextStyles.bold.copyWith(
-                                          fontFamily:
-                                              TextStyles.secondaryFontFamily,
-                                          fontSize: 12.sp,
-                                          color: AppColors.background),
+                                        fontFamily:
+                                            TextStyles.secondaryFontFamily,
+                                        fontSize: 12.sp,
+                                        overflow: TextOverflow.ellipsis,
+                                        color: AppColors.background,
+                                      ),
                                       children: [
                                         TextSpan(
                                           text: AppStrings.keyWith,
                                           style: TextStyles.regular.copyWith(
-                                              fontFamily:
-                                                  TextStyles.secondaryFontFamily,
-                                              fontSize: 12.sp,
-                                              color: AppColors.background),
+                                            fontFamily:
+                                                TextStyles.secondaryFontFamily,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: 12.sp,
+                                            color: AppColors.background,
+                                          ),
                                         ),
                                         TextSpan(
                                           text: AppStrings.keyConfidence,
                                           style: TextStyles.bold.copyWith(
-                                              fontFamily:
-                                                  TextStyles.secondaryFontFamily,
-                                              fontSize: 12.sp,
-                                              color: AppColors.background),
+                                            fontFamily:
+                                                TextStyles.secondaryFontFamily,
+                                            fontSize: 12.sp,
+                                            overflow: TextOverflow.ellipsis,
+                                            color: AppColors.background,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -84,10 +90,12 @@ class HomeScreenBanner extends StatelessWidget {
                                   Text(
                                     AppStrings.keyBannerSubtitle,
                                     style: TextStyles.light.copyWith(
-                                        fontFamily:
-                                            TextStyles.secondaryFontFamily,
-                                        fontSize: 8.sp,
-                                        color: AppColors.background),
+                                      fontFamily:
+                                          TextStyles.secondaryFontFamily,
+                                      fontSize: 8.sp,
+                                      overflow: TextOverflow.ellipsis,
+                                      color: AppColors.background,
+                                    ),
                                   )
                                 ],
                               ),

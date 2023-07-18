@@ -60,6 +60,7 @@ class SubscriptionPlanCard extends StatelessWidget {
               style: TextStyles.regular.copyWith(
                 fontFamily: 'Sora',
                 fontSize: 12.sp,
+                overflow: TextOverflow.ellipsis,
                 color: AppColors.greyText,
               ),
             ),
@@ -70,6 +71,7 @@ class SubscriptionPlanCard extends StatelessWidget {
               planBenefits,
               style: TextStyles.extraLight.copyWith(
                 fontSize: 10.sp,
+                overflow: TextOverflow.ellipsis,
                 fontFamily: 'Sora',
                 color: AppColors.greyText,
               ),
@@ -83,6 +85,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                 fontSize: 10,
                 fontFamily: 'Sora',
                 color: AppColors.primary,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const Divider(
@@ -96,6 +99,7 @@ class SubscriptionPlanCard extends StatelessWidget {
               planKd,
               style: TextStyles.bold.copyWith(
                 fontFamily: 'Sora',
+                overflow: TextOverflow.ellipsis,
                 fontSize: 26.sp,
                 color: borderColor,
               ),
@@ -116,6 +120,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                 ),
                 Text(
                   subscriptionPlanOne,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.light.copyWith(
                     fontSize: 12.sp,
                     fontFamily: 'Sora',
@@ -142,6 +147,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                   subscriptionPlanTwo,
                   style: TextStyles.light.copyWith(
                     fontSize: 12.sp,
+                    overflow: TextOverflow.ellipsis,
                     fontFamily: 'Sora',
                     color: AppColors.containerText,
                   ),
@@ -190,18 +196,18 @@ class SubscriptionPlanCard extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.keyBuyNow,
                       style: TextStyles.semiBold.copyWith(
                         fontFamily: 'Sora',
                         fontSize: 14.sp,
+                        overflow: TextOverflow.ellipsis,
                         color: AppColors.dividerColor,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0.w),
                       child: SvgPicture.asset(
                         '${AppAssets.svgLocation}arrow.svg',
                         width: 14.w,

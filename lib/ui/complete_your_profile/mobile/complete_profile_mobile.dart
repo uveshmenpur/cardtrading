@@ -1,43 +1,41 @@
-import 'package:cardtrading/framework/controllers/complete_your_profile/complete_profie_controller.dart';
-import 'package:cardtrading/ui/complete_your_profile/add_address.dart';
+import 'package:cardtrading/framework/controllers/complete_your_profile/complete_profile_controller.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/helper/add_address_screen.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/helper/complete_profile_screen.dart';
 import 'package:cardtrading/ui/utils/theme/assets.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
-import 'package:cardtrading/ui/utils/widget/common_button.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:cardtrading/ui/utils/widget/common_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CompleteProfileMobile extends ConsumerStatefulWidget {
+class CompleteProfileMobile extends StatelessWidget {
   const CompleteProfileMobile({super.key});
-
-  @override
-  ConsumerState<CompleteProfileMobile> createState() =>
-      _CompleteProfileMobileState();
-}
-
-class _CompleteProfileMobileState extends ConsumerState<CompleteProfileMobile> {
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
+      appBar: CommonAppBar(
         backgroundColor: AppColors.background,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          AppStrings.keyCompleteYourProfile,
-          style: TextStyles.medium.copyWith(
-            fontSize: 16.sp,
-          ),
-        ),
+        isTitleCentered: true,
+        titleWidget: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? widget) {
+          final completeProfileWatch = ref.watch(completeProfileController);
+          return Text(
+            completeProfileWatch.page == 0
+                ? AppStrings.keyCompleteYourProfile
+                : AppStrings.keyAddAddress,
+            style: TextStyles.medium.copyWith(
+              fontSize: 16.sp,
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        }),
         leading: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0.w),
           child: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -50,212 +48,21 @@ class _CompleteProfileMobileState extends ConsumerState<CompleteProfileMobile> {
           ),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: SizedBox(
-                            width: 180,
-                            child: Text(
-                              AppStrings.keyEnterYourPersonalDetails,
-                              softWrap: true,
-                              maxLines: 3,
-                              style: TextStyles.medium.copyWith(
-                                fontSize: 18.sp,
-                                color: AppColors.golden,
-                                height: 1.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(
-                          flex: 1,
-                        ),
-                        ...List.generate(
-                          2,
-                          (index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Container(
-                                width: 8.w,
-                                height: 8.h,
-                                decoration: BoxDecoration(
-                                  border: index == 1
-                                      ? Border.all(
-                                          color: AppColors.indicatorColor,
-                                        )
-                                      : null,
-                                  color: index == 0
-                                      ? AppColors.primary
-                                      : Colors.transparent,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Text(
-                      AppStrings.keyCompleteYourProfileContent,
-                      style: TextStyles.regular.copyWith(
-                        fontSize: 12.sp,
-                        color: AppColors.checkoutTextColor,
-                        height: 1.5,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    TextFormField(
-                      cursorColor: AppColors.primary,
-                      validator: (value) {
-                        if (!EmailValidator.validate(value!)) {
-                          return 'Enter Valid Email';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(18.0),
-                        hintText: AppStrings.keyUsername,
-                        fillColor: AppColors.buttonBg,
-                        filled: true,
-                        hintStyle: TextStyles.light.copyWith(
-                          fontFamily: 'Sora',
-                          color: AppColors.buttonText,
-                          backgroundColor: AppColors.buttonBg,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Consumer(
-                      builder:
-                          (BuildContext context, WidgetRef ref, Widget? child) {
-                        final completeProfileWatch =
-                            ref.watch(completeProfileController);
-                        return InkWell(
-                          onTap: () {
-                            completeProfileWatch.addReferral();
-                          },
-                          child: Text(
-                            AppStrings.keyHaveReferral,
-                            style: TextStyles.light.copyWith(
-                              fontFamily: 'Sora',
-                              color: AppColors.primary,
-                              fontSize: 12.sp,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primary,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Consumer(
-                      builder:
-                          (BuildContext context, WidgetRef ref, Widget? child) {
-                        final completeProfileWatch =
-                            ref.watch(completeProfileController);
-                        return Visibility(
-                          visible: completeProfileWatch.hasReferral,
-                          child: TextFormField(
-                            cursorColor: AppColors.primary,
-                            decoration: InputDecoration(
-                              hintText: AppStrings.keyEnterReferral,
-                              fillColor: AppColors.buttonBg,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 20.0),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  completeProfileWatch.addReferral();
-                                },
-                                child: Container(
-                                  width: 87.w,
-                                  height: 54.h,
-                                  padding: EdgeInsets.zero,
-                                  color: AppColors.primary,
-                                  child: Center(
-                                    child: Text(
-                                      AppStrings.keyApply,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyles.regular.copyWith(
-                                        fontSize: 12.sp,
-                                        fontFamily: 'Sora',
-                                        backgroundColor: AppColors.primary,
-                                        color: AppColors.selectedButtonText,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              hintStyle: TextStyles.light.copyWith(
-                                fontFamily: 'Sora',
-                                color: AppColors.buttonText,
-                                backgroundColor: AppColors.buttonBg,
-                              ),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 24.h),
-                child: CommonButton(
-                  buttonPadding: const EdgeInsets.all(8.0),
-                  prefixWidget: Text(
-                    AppStrings.keyNext,
-                    style: TextStyles.semiBold.copyWith(
-                      color: AppColors.selectedButtonText,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  buttonText: ' ',
-                  suffixWidget: const Icon(
-                    Icons.arrow_forward_outlined,
-                    color: AppColors.selectedButtonText,
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const AddAddress();
-                          },
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? widget) {
+        final completeProfileWatch = ref.watch(completeProfileController);
+        return PageView(
+          controller: completeProfileWatch.pageController,
+          physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+          onPageChanged: (index) {
+            completeProfileWatch.changePage(index);
+          },
+          children: const [
+            CompleteYourProfile(),
+            AddAddressScreen(),
+          ],
+        );
+      }),
     );
   }
 }

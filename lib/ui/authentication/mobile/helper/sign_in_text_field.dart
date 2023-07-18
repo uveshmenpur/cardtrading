@@ -12,26 +12,19 @@ class SignInTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode signInFocusNode = FocusNode();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        focusNode: signInFocusNode,
         onTapOutside: (pointer) {
-          FocusManager.instance.primaryFocus?.unfocus();
+          signInFocusNode.unfocus();
         },
         validator: (value) {
-          try {
-            double num = double.parse(value ?? '');
-            if (value?.length != 10) {
-              return 'Enter Valid Phone Number';
-            } else {
-              return null;
-            }
-          } catch (e) {
-            if (value?.length != 10) {
-              return 'Invalid Input';
-            } else {
-              return 'Invalid Input';
-            }
+          if (value?.length != 10) {
+            return 'Enter Valid Phone Number';
+          } else {
+            return null;
           }
         },
         keyboardType: TextInputType.phone,

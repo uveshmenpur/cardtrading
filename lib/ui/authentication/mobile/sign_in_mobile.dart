@@ -43,68 +43,62 @@ class _SignInMobileState extends ConsumerState<SignInMobile> {
         ),
         centerTitle: true,
       ),
-      body: _bodyWidget(context),
-    );
-  }
-
-  ///Body Widget
-  Widget _bodyWidget(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 0.6.sw,
-                      child: Text(
-                        AppStrings.keySignInTitle,
-                        style: TextStyles.medium.copyWith(
-                          fontSize: 18.sp,
-                          color: AppColors.golden,
+      body:  Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 0.6.sw,
+                        child: Text(
+                          AppStrings.keySignInTitle,
+                          style: TextStyles.medium.copyWith(
+                            fontSize: 18.sp,
+                            color: AppColors.golden,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SizedBox(
-                      width: 0.9.sw,
-                      child: Text(
-                        AppStrings.keySignInContent,
-                        style: TextStyles.regular.copyWith(
-                          fontSize: 12.sp,
-                          color: AppColors.checkoutTextColor,
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      SizedBox(
+                        width: 0.9.sw,
+                        child: Text(
+                          AppStrings.keySignInContent,
+                          style: TextStyles.regular.copyWith(
+                            fontSize: 12.sp,
+                            color: AppColors.checkoutTextColor,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
 
-                    ///Enter Phone Number Text Fields
-                    const SignInTextField(),
-                  ],
+                      ///Enter Phone Number Text Fields
+                      const SignInTextField(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
-            child: _commonButton(context),
-          ),
-        ],
+            Padding(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
+              child: _commonButton(context),
+            ),
+          ],
+        ),
       ),
     );
   }
-
   ///Common Button
   Widget _commonButton(BuildContext context) {
     return CommonButton(
