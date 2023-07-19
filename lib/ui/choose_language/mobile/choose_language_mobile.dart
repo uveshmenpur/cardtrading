@@ -1,23 +1,15 @@
-import 'package:cardtrading/framework/controllers/choose_language/choose_language_controller.dart';
 import 'package:cardtrading/ui/choose_language/mobile/helper/choose_language_button.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
 import 'package:cardtrading/ui/utils/widget/common_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cardtrading/ui/choose_language/mobile/helper/choose_language_next_button.dart';
 
-class ChooseLanguageMobile extends ConsumerStatefulWidget {
+class ChooseLanguageMobile extends StatelessWidget {
   const ChooseLanguageMobile({super.key});
 
-  @override
-  ConsumerState<ChooseLanguageMobile> createState() =>
-      _ChooseLanguageMobileState();
-}
-
-class _ChooseLanguageMobileState extends ConsumerState<ChooseLanguageMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +45,8 @@ class _ChooseLanguageMobileState extends ConsumerState<ChooseLanguageMobile> {
 
                   /// Buttons to Select Languages
                   ...List.generate(
-                    ref.watch(chooseLanguageController).languages.length,
-                    (index) {
+                    2,
+                        (index) {
                       return ChooseLanguageButton(index: index);
                     },
                   ),

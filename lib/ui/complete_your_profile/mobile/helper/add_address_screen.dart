@@ -1,9 +1,10 @@
 import 'package:cardtrading/framework/controllers/complete_your_profile/complete_profile_controller.dart';
-import 'package:cardtrading/ui/home_screen/home_screen.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/helper/add_address_header.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/helper/address_type_field.dart';
+import 'package:cardtrading/ui/complete_your_profile/mobile/helper/sign_up_button.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
-import 'package:cardtrading/ui/utils/widget/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,42 +29,7 @@ class AddAddressScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: SizedBox(
-                                width: 180,
-                                child: Text(
-                                  AppStrings.keyEnterYourAddress,
-                                  softWrap: true,
-                                  maxLines: 3,
-                                  style: TextStyles.medium.copyWith(
-                                    fontSize: 18.sp,
-                                    color: AppColors.golden,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            ...List.generate(
-                              2,
-                              (index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Container(
-                                    width: 8.w,
-                                    height: 8.h,
-                                    decoration: const BoxDecoration(
-                                        color: AppColors.primary),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                        const AddAddressHeader(),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -126,10 +92,6 @@ class AddAddressScreen extends StatelessWidget {
                             filled: true,
                             contentPadding: EdgeInsets.all(16.0),
                           ),
-                          onMenuStateChange: (isChanged) {
-                            completeProfileWatch.secondPageFormKey.currentState!
-                                .validate();
-                          },
                           validator: (value) {
                             if (!completeProfileWatch.blocks.contains(value)) {
                               return 'This Field is mandatory';
@@ -170,10 +132,6 @@ class AddAddressScreen extends StatelessWidget {
                             filled: true,
                             contentPadding: EdgeInsets.all(16.0),
                           ),
-                          onMenuStateChange: (isChanged) {
-                            completeProfileWatch.secondPageFormKey.currentState!
-                                .validate();
-                          },
                           validator: (value) {
                             if (!completeProfileWatch.streets.contains(value)) {
                               return 'This Field is mandatory';
@@ -299,87 +257,12 @@ class AddAddressScreen extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Row(
-                          children: [
-                            ...List.generate(
-                              3,
-                              (index) {
-                                return Row(
-                                  children: [
-                                    InkWell(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              completeProfileWatch.id == index
-                                                  ? AppColors.primary
-                                                  : AppColors.buttonBg,
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 16.0.w,
-                                            vertical: 8.0.h),
-                                        child: Text(
-                                          completeProfileWatch
-                                              .addressTypes[index],
-                                          style: TextStyles.regular.copyWith(
-                                            color: completeProfileWatch.id ==
-                                                    index
-                                                ? AppColors.selectedButtonText
-                                                : AppColors.greyText,
-                                            fontSize: 12.sp,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        completeProfileWatch.setId(index);
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: 10.0.w,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        )
+                        const AddressTypeField()
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24.h),
-                  child: CommonButton(
-                    buttonPadding: const EdgeInsets.all(8.0),
-                    prefixWidget: Text(
-                      AppStrings.keySignUp,
-                      style: TextStyles.semiBold.copyWith(
-                        color: AppColors.selectedButtonText,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    buttonText: ' ',
-                    suffixWidget: const Icon(
-                      Icons.arrow_forward_outlined,
-                      color: AppColors.selectedButtonText,
-                    ),
-                    onPressed: () {
-                      if (completeProfileWatch.secondPageFormKey.currentState!
-                          .validate()) {
-                        completeProfileWatch.secondPageFormKey.currentState!
-                            .save();
-                        completeProfileWatch.resetPage();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const HomeScreen();
-                            },
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ),
+                const SignUpButton(),
               ],
             ),
           ),

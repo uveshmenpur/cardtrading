@@ -1,32 +1,27 @@
 import 'package:cardtrading/framework/controllers/card_details/card_details_controller.dart';
 import 'package:cardtrading/framework/controllers/checkout/checkout_controller.dart';
-import 'package:cardtrading/ui/card_details/mobile/helper/card_details_icons.dart';
-import 'package:cardtrading/ui/checkout/checkout.dart';
+import 'package:cardtrading/ui/card_details/mobile/helper/add_to_card_button.dart';
+import 'package:cardtrading/ui/card_details/mobile/helper/card_description.dart';
+import 'package:cardtrading/ui/card_details/mobile/helper/card_details_bottom_content.dart';
 import 'package:cardtrading/ui/utils/theme/colors.dart';
 import 'package:cardtrading/ui/utils/theme/my_strings.dart';
 import 'package:cardtrading/ui/utils/theme/text_style.dart';
-import 'package:cardtrading/ui/utils/widget/common_button.dart';
+import 'package:cardtrading/ui/utils/widget/common_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class CardDetailsMobile extends ConsumerStatefulWidget {
+class CardDetailsMobile extends StatelessWidget {
   CardDetailsMobile({super.key, required this.url});
 
   final String url;
   final cartModel = CartModel(cardName: AppStrings.keyCardDescription, cardType: AppStrings.keyCardExclusive, cardQty: 1, cardPrice: AppStrings.keyCardPrice);
 
   @override
-  ConsumerState<CardDetailsMobile> createState() => _CardDetailsMobileState();
-}
-
-class _CardDetailsMobileState extends ConsumerState<CardDetailsMobile> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
+      appBar: CommonAppBar(
+        titleWidget: Text(
           AppStrings.keyCardDetail,
           style: TextStyles.medium.copyWith(fontSize: 16.sp),
         ),
@@ -35,8 +30,7 @@ class _CardDetailsMobileState extends ConsumerState<CardDetailsMobile> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back)),
-        centerTitle: true,
-        elevation: 0,
+        isTitleCentered: true,
         backgroundColor: AppColors.background,
       ),
       backgroundColor: AppColors.background,
@@ -49,70 +43,14 @@ class _CardDetailsMobileState extends ConsumerState<CardDetailsMobile> {
               padding: EdgeInsets.symmetric(vertical: 20.h),
               height: 340.h,
               child: Image.asset(
-                widget.url,
+                url,
                 width: 200.w,
                 height: 300.h,
                 fit: BoxFit.fill,
               ),
             ),
             _divider(),
-            ListTile(
-              title: Text(
-                widget.cartModel.cardName,
-                maxLines: 2,
-                softWrap: true,
-                style: TextStyles.medium.copyWith(color: AppColors.white),
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Consumer(builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final cardDetailsWatch = ref.watch(cardDetailsController);
-                    return IconButton(
-                      iconSize: 24,
-                      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                      onPressed: () {
-                        cardDetailsWatch.setFavourite();
-                      },
-                      icon: Icon(
-                        cardDetailsWatch.isFavourite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: AppColors.primary,
-                      ),
-                    );
-                  }),
-                  Text(
-                    AppStrings.keyCardLikesCount,
-                    style: TextStyles.regular,
-                  ),
-                ],
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 70.w,
-                      height: 20.h,
-                      color: AppColors.golden,
-                      child: Center(
-                        child: Text(
-                          widget.cartModel.cardType,
-                          style: TextStyles.semiBold
-                              .copyWith(color: Colors.black, fontSize: 12.sp),
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(''),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            CardDescription(cartModel: cartModel),
             _divider(),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -160,79 +98,11 @@ class _CardDetailsMobileState extends ConsumerState<CardDetailsMobile> {
               }),
             ),
             _divider(),
-            Container(
-              width: double.infinity,
-              height: 0.25.sh,
-              decoration: const BoxDecoration(
-                color: AppColors.containerBg,
-              ),
-              margin: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    AppStrings.keyCollectiveProducts,
-                    style: TextStyles.semiBold.copyWith(
-                      fontSize: 16.sp,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  Consumer(builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final cardDetailsWatch = ref.watch(cardDetailsController);
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ...List.generate(
-                            cardDetailsWatch.cardDetailDescription.length,
-                            (index) {
-                          return CardDetailsIcon(
-                            svg: SvgPicture.asset(
-                              cardDetailsWatch.cardDetailIcons[index],
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            title:
-                                cardDetailsWatch.cardDetailDescription[index],
-                          );
-                        })
-                      ],
-                    );
-                  }),
-                ],
-              ),
-            ),
+            const CardDetailsBottomContent(),
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-        child: CommonButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Checkout(cartModel: widget.cartModel,);
-                },
-              ),
-            );
-          },
-          buttonText: '',
-          buttonPadding: const EdgeInsets.all(12.0),
-          prefixWidget: Text(
-            AppStrings.keyCardPrice2,
-            style: TextStyles.semiBold
-                .copyWith(fontSize: 16.sp, color: AppColors.dividerColor),
-          ),
-          suffixWidget: Text(
-            AppStrings.keyAddToCart,
-            style: TextStyles.semiBold
-                .copyWith(fontSize: 16.sp, color: AppColors.dividerColor),
-          ),
-        ),
-      ),
+      bottomNavigationBar: AddToCartButton(cartModel: cartModel,),
     );
   }
 

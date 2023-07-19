@@ -9,5 +9,6 @@ class CardShopController extends ChangeNotifier{
   int pageIndex = 0;
   void setOrIncrementPageIndex({int? index}){
     pageIndex = index ?? pageIndex + 1;
+    notifyListeners();
   }
 }

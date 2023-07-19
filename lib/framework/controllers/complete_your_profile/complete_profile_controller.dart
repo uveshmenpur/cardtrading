@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final completeProfileController =
-    ChangeNotifierProvider((ref) => CompleteProfileController());
+ChangeNotifierProvider((ref) => CompleteProfileController());
 
 class CompleteProfileController extends ChangeNotifier {
   bool hasReferral = false;
@@ -29,8 +29,8 @@ class CompleteProfileController extends ChangeNotifier {
   String? area, block, street;
   int id = 0;
   List<String> areas = ['Isckon', 'Thaltej', 'NehruNagar', 'Bodakdev'];
-  List<String> blocks = ['Isckon', 'Thaltej', 'NehruNagar', 'Bodakdev'];
-  List<String> streets = ['Isckon', 'Thaltej', 'NehruNagar', 'Bodakdev'];
+  List<String> blocks = ['Block 1', 'Block 2', 'Block 3', 'Block 4'];
+  List<String> streets = ['Street 1', 'Street 2', 'Street 3', 'Street 4'];
   List<String> addressTypes = [
     AppStrings.keyAddressTypeOne,
     AppStrings.keyAddressTypeTwo,
@@ -44,12 +44,12 @@ class CompleteProfileController extends ChangeNotifier {
   }
 
   void setBlock(String? value) {
-    area = value;
+    block = value;
     notifyListeners();
   }
 
   void setStreet(String? value) {
-    area = value;
+    street = value;
     notifyListeners();
   }
 
@@ -77,12 +77,7 @@ class CompleteProfileController extends ChangeNotifier {
     page++;
     notifyListeners();
   }
-  String? validateDropDowns(String? value,int index){
-    if((areas.contains(value) && index == 0) || (blocks.contains(value) && index == 1) || (streets.contains(value) && index == 3)){
-      return 'Enter Valid Value';
-    }
-    return null;
-  }
+
 
   void resetPage(){
     pageController.jumpToPage(0);

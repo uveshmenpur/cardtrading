@@ -12,13 +12,11 @@ class SignInTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FocusNode signInFocusNode = FocusNode();
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0.w),
       child: TextFormField(
-        focusNode: signInFocusNode,
         onTapOutside: (pointer) {
-          signInFocusNode.unfocus();
+          FocusManager.instance.primaryFocus?.unfocus();
         },
         validator: (value) {
           if (value?.length != 10) {

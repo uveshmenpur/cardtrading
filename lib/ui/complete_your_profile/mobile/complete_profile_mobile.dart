@@ -23,17 +23,17 @@ class CompleteProfileMobile extends StatelessWidget {
         isTitleCentered: true,
         titleWidget: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? widget) {
-          final completeProfileWatch = ref.watch(completeProfileController);
-          return Text(
-            completeProfileWatch.page == 0
-                ? AppStrings.keyCompleteYourProfile
-                : AppStrings.keyAddAddress,
-            style: TextStyles.medium.copyWith(
-              fontSize: 16.sp,
-              overflow: TextOverflow.ellipsis,
-            ),
-          );
-        }),
+              final completeProfileWatch = ref.watch(completeProfileController);
+              return Text(
+                completeProfileWatch.page == 0
+                    ? AppStrings.keyCompleteYourProfile
+                    : AppStrings.keyAddAddress,
+                style: TextStyles.medium.copyWith(
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              );
+            }),
         leading: Padding(
           padding: EdgeInsets.all(12.0.w),
           child: InkWell(
@@ -50,19 +50,19 @@ class CompleteProfileMobile extends StatelessWidget {
       ),
       body: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? widget) {
-        final completeProfileWatch = ref.watch(completeProfileController);
-        return PageView(
-          controller: completeProfileWatch.pageController,
-          physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-          onPageChanged: (index) {
-            completeProfileWatch.changePage(index);
-          },
-          children: const [
-            CompleteYourProfile(),
-            AddAddressScreen(),
-          ],
-        );
-      }),
+            final completeProfileWatch = ref.watch(completeProfileController);
+            return PageView(
+              controller: completeProfileWatch.pageController,
+              physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+              onPageChanged: (index) {
+                completeProfileWatch.changePage(index);
+              },
+              children: const [
+                CompleteYourProfile(),
+                AddAddressScreen(),
+              ],
+            );
+          }),
     );
   }
 }

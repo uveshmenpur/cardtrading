@@ -17,7 +17,6 @@ class CommonTitle extends StatelessWidget {
       text,
       textAlign: align,
       maxLines: 3,
-      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: TextStyles.fontFamily,
         fontSize: fontSize.sp,

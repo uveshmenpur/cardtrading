@@ -10,7 +10,7 @@ class CommonParagraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,7 +27,6 @@ class CommonParagraph extends StatelessWidget {
           Text(
             AppStrings.keyCommonParagraphContent,
             softWrap: true,
-            overflow: TextOverflow.ellipsis,
             style: TextStyles.light.copyWith(
               fontSize: 12.sp,
               fontFamily: 'Sora',

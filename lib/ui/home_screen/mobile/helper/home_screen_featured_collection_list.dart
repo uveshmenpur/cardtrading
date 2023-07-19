@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeScreenFeaturedCollectionList extends StatelessWidget {
   const HomeScreenFeaturedCollectionList({super.key});
 
+  final int count = 10;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,25 +27,22 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                 SizedBox(
                   width: 0.9.sw,
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       index == 0
-                          ? const CommonTitle(
-                              text: AppStrings.keyFeaturedCollection)
+                          ? const CommonTitle(text: AppStrings.keyFeaturedCollection)
                           : const Text(''),
                       RichText(
                         text: TextSpan(
                           text: index < 9 ? '0${index + 1}' : '${index + 1}',
-                          style: TextStyles.regular.copyWith(
-                            color: AppColors.primary,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          style: TextStyles.regular
+                              .copyWith(color: AppColors.primary),
                           children: [
                             TextSpan(
-                              text: '/10',
-                              style: TextStyles.regular.copyWith(
-                                  color: AppColors.greyText,
-                                  overflow: TextOverflow.ellipsis),
+                              text: '/$count',
+                              style: TextStyles.regular
+                                  .copyWith(color: AppColors.greyText),
                             ),
                           ],
                         ),
@@ -53,11 +52,9 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(16.0.w),
+                    padding: const EdgeInsets.all(16.0),
                     child: Image.asset(
-                      index == 1
-                          ? '${AppAssets.imgLocation}card_1.png'
-                          : '${AppAssets.imgLocation}card_0.png',
+                      index == 1 ?'${AppAssets.imgLocation}card_1.png' :'${AppAssets.imgLocation}card_0.png',
                       width: 178.w,
                       height: 300.h,
                       fit: BoxFit.contain,
@@ -71,6 +68,7 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
@@ -78,12 +76,9 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                             child: Text(
                               AppStrings.key1993,
                               softWrap: true,
-                              overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyles.regular.copyWith(
-                                color: AppColors.white,
-                                fontSize: 16.sp,
-                              ),
+                              style: TextStyles.regular
+                                  .copyWith(color: AppColors.white, fontSize: 16),
                             ),
                           ),
                         ],
@@ -92,18 +87,13 @@ class HomeScreenFeaturedCollectionList extends StatelessWidget {
                         children: [
                           Text(
                             'PSA 5',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.regular.copyWith(
-                              color: AppColors.golden,
-                              fontSize: 16.sp,
-                            ),
+                            style: TextStyles.regular
+                                .copyWith(color: AppColors.golden, fontSize: 16),
                           ),
                           Text(
                             '\$300.10',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.regular.copyWith(
-                              color: AppColors.primary,
-                            ),
+                            style: TextStyles.regular
+                                .copyWith(color: AppColors.primary),
                           ),
                         ],
                       )

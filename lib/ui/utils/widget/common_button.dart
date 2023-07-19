@@ -62,7 +62,6 @@ class CommonButton extends StatelessWidget {
                     TextStyles.semiBold.copyWith(
                       fontSize: buttonFontSize ?? 16.sp,
                       color: AppColors.selectedButtonText,
-                      overflow: TextOverflow.ellipsis
                     ),
               ),
             ),

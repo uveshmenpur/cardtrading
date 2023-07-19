@@ -24,7 +24,8 @@ class ShopCard extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return CardDetails(
-                      url: '${AppAssets.imgLocation}card_${index % 4}.png');
+                      url:
+                          '${AppAssets.imgLocation}card_${index % 4}.png');
                 },
               ),
             );
@@ -51,26 +52,26 @@ class ShopCard extends StatelessWidget {
                         .copyWith(color: Colors.black, fontSize: 12.sp),
                   ),
                 ),
-                Consumer(builder:
-                    (BuildContext context, WidgetRef ref, Widget? widget) {
-                  return IconButton(
-                    iconSize: 24,
-                    padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                    onPressed: () {
-                      ref.watch(shopCardController).favourite();
-                    },
-                    icon: Icon(
-                      ref.watch(shopCardController).isFavourite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: AppColors.primary,
-                    ),
-                  );
-                }),
+                Consumer(
+                  builder: (BuildContext context,WidgetRef ref,Widget? widget) {
+                    return IconButton(
+                      iconSize: 24,
+                      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                      onPressed: () {
+                        ref.watch(shopCardController).favourite();
+                      },
+                      icon: Icon(
+                        ref.watch(shopCardController).isFavourite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: AppColors.primary,
+                      ),
+                    );
+                  }
+                ),
                 Text(
                   AppStrings.keyCardLikesCount,
                   style: TextStyles.regular,
-                  overflow: TextOverflow.fade,
                 ),
               ],
             ),
@@ -96,17 +97,13 @@ class ShopCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 softWrap: true,
-                style: TextStyles.regular
-                    .copyWith(fontSize: 12.sp, overflow: TextOverflow.ellipsis),
+                style: TextStyles.regular.copyWith(fontSize: 12.sp),
               ),
             ),
             Text(
               AppStrings.keyCardPrice,
               textAlign: TextAlign.center,
-              style: TextStyles.semiBold.copyWith(
-                color: AppColors.primary,
-                overflow: TextOverflow.ellipsis,
-              ),
+              style: TextStyles.semiBold.copyWith(color: AppColors.primary),
             ),
             SizedBox(
               height: 8.h,

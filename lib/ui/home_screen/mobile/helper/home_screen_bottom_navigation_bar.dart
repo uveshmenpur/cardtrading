@@ -25,7 +25,7 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
             items: [
               ...List.generate(
                 4,
-                (index) {
+                    (index) {
                   return BottomNavigationBarItem(
                       icon: Container(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -63,30 +63,30 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
               homeScreenWatch.setId(newId: index);
               index == 1 || index == 3
                   ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const GetOtp();
-                        },
-                      ),
-                    )
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const GetOtp();
+                  },
+                ),
+              )
                   : index == 2
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const CardShop();
-                            },
-                          ),
-                        )
-                      : Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const HomeScreen();
-                            },
-                          ),
-                        );
+                  ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const CardShop();
+                  },
+                ),
+              )
+                  : Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const HomeScreen();
+                  },
+                ),
+              );
             },
           ),
         );
