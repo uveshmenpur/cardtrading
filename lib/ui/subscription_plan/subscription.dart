@@ -15,3 +15,4 @@ class Subscription extends StatelessWidget {
     });
   }
 }
+
